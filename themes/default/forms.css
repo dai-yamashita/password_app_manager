@@ -1,0 +1,11 @@
+@charset "utf-8";
+/* CSS Document */
+
+.form { width:500px; padding:15px; margin:15px }
+.form label { display:block ; width:150px ; float:left ;  }
+.form input[type="text"], .form .select1  { width:200px }
+.form textarea, .form input[type="text"] { display:block ; }
+.form .btn { padding-top:10px }
+.form legend { font-size:18px; padding:5px }
+.form .fld { padding:3px }
+

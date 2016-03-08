@@ -1,0 +1,47 @@
+@charset "utf-8";
+/* CSS Document */
+
+.groupby, .groupby2 { float:right; margin-bottom:10px }
+.groupby ul { display:none}
+.groupby2 ul {  }
+.groupby li, .groupby2 li{ float:left; display:inline ;padding-right:15px }
+.groupby ul li a, .groupby2  ul li a{font-size:15px; padding-right:15px } 
+
+
+.val { margin-bottom: 10px }
+
+.arrowdown {  background:url(../images/down.gif) no-repeat; background-position:right  }
+.arrowup {    background:url(../images/up.gif) no-repeat; background-position:right   }
+
+.unread { color:#C00 !important}
+.read { color:#390 !important}  
+
+.peopleaccess {border:1px solid #ccc; overflow:auto; height:300px; width:250px}
+.subtitle { font-size:16px; font-weight:bold; color:#0073EA }
+.title2 { font-size:20px; color:#0073EA; padding-bottom:10px } 
+
+
+.password {
+font-size : 12px;
+border : 1px solid #cc9933;
+width : 200px;
+font-family : arial, sans-serif;
+}
+.pstrength-minchar {
+font-size : 10px; display:none;
+}
+
+.pwdmanager {width:480px; border:2px solid #ccc; background:#eee; padding:5px; display:xnone; }
+
+.toolbar2 { float:right; margin-bottom:20px }
+.toolbar2 li { float:right; display:inline; padding-right:30px; }
+.toolbar2 li a { line-height:2.2em }
+.toolbar2 li img{ vertical-align:bottom }
+
+.csvoptable {padding:6px;background:#eee; margin-top:5px}
+
+#req_group, #req_project{ text-transform:uppercase !important }
+
+.em2 { font-style:italic; font-weight:bold}
+
+.warning { margin:0; padding:0 ;  }
