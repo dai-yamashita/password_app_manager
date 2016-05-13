@@ -1,0 +1,46 @@
+<root>
+	<element>
+		<acctype>CMS</acctype>
+		<desc>description place here</desc>
+	</element>
+	<element>
+		<acctype>cpanel</acctype>
+		<desc>description place here</desc>
+	</element>
+	<element>
+		<acctype>DB User</acctype>
+		<desc>description place here</desc>
+	</element>
+	<element>
+		<acctype>Domain Registrar</acctype>
+		<desc>description place here</desc>
+	</element>
+	<element>
+		<acctype>Email</acctype>
+		<desc>description place here</desc>
+	</element>
+	<element>
+		<acctype>FTP</acctype>
+		<desc>description place here</desc>
+	</element>
+	<element>
+		<acctype>MSD</acctype>
+		<desc>MySQLDumper</desc>
+	</element>
+	<element>
+		<acctype>MySQL Root</acctype>
+		<desc>description place here</desc>
+	</element>
+	<element>
+		<acctype>ProjectMgt</acctype>
+		<desc>description place here</desc>
+	</element>
+	<element>
+		<acctype>SSH</acctype>
+		<desc>ssh</desc>
+	</element>
+	<element>
+		<acctype>WHM</acctype>
+		<desc>description place here</desc>
+	</element>
+</root>
