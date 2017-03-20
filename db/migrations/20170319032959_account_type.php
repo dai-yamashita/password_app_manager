@@ -28,10 +28,11 @@ class AccountType extends AbstractMigration
     public function change()
     {
       // create the table
-      $table = $this->table('users');
+      $table = $this->table('account_type');
       $table->addColumn('type_id', 'integer')
             ->addColumn('acctype', 'string')
             ->addColumn('created', 'datetime')
+            ->addColumn('user_id', 'integer')
             ->addColumn('domain_id', 'integer')
             ->create();
     }

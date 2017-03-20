@@ -28,16 +28,11 @@ class Sitesettings extends AbstractMigration
     public function change()
     {
       // create the table
-      $table = $this->table('users');
+      $table = $this->table('sitesettings');
       $table->addColumn('use_captcha', 'integer')
+            ->addColumn('projectid', 'integer')
             ->addColumn('account_expired_message', 'string')
             ->addColumn('admin_email', 'string')
-            ->addColumn('lastname', 'string')
-            ->addColumn('email', 'string')
-            ->addColumn('projectid', 'integer')
-            ->addColumn('skypeid', 'string')
-            ->addColumn('position', 'string')
-            ->addColumn('pwlength', 'string')
             ->create();
     }
 }
