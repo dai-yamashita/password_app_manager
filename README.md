@@ -11,6 +11,11 @@ $ composer require robmorgan/phinx
 $ composer install    
 $ php vendor/bin/phinx     <-- lets check if phinx was installed    
 
+##### Migration     
+If you want to create another database table, in root folder of the app simply run like this example:    
+artheman@ub3c:/var/www/_php/password_app_manager(master)$ php vendor/bin/phinx create UserGroups     
+
+
 #### Technology stacks:    
 * PHP/Codeigniter framework      
 * MySql  
