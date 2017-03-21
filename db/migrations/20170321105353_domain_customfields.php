@@ -2,7 +2,7 @@
 
 use Phinx\Migration\AbstractMigration;
 
-class Department extends AbstractMigration
+class DomainCustomfields extends AbstractMigration
 {
     /**
      * Change Method.
@@ -27,14 +27,12 @@ class Department extends AbstractMigration
      */
     public function change()
     {
-      // create the table
-      $table = $this->table('department');
-      $table->addColumn('deptid', 'integer')
-            ->addColumn('userid', 'integer')
-            ->addColumn('deptid', 'integer')
-            ->addColumn('groupname', 'string')
-            ->addColumn('department', 'string')
-            ->addColumn('visibility', 'string')
+      $table = $this->table('domain_customfields');
+      $table->addColumn('customfieldid', 'integer')
+            ->addColumn('user_id', 'integer')
+            ->addColumn('domain_id', 'integer')
+            ->addColumn('customfield', 'string')
+            ->addColumn('value', 'string')
             ->create();
     }
 }
