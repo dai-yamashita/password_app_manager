@@ -5,7 +5,7 @@ A basic password app manager built using Codeigniter.
 $ git clone --depth=1 git@github.com:sudogem/password_app_manager.git      
 
 
-Install Composer:   
+Install phinx library using Composer:   
 $ curl -sS https://getcomposer.org/installer | sudo php — –install-dir=/usr/local/bin –filename=composer    
 $ composer require robmorgan/phinx    
 $ composer install         <-- it will install phinx library and its dependencies on /vendor    
