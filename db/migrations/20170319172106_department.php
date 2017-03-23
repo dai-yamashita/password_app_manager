@@ -31,7 +31,6 @@ class Department extends AbstractMigration
       $table = $this->table('department');
       $table->addColumn('deptid', 'integer')
             ->addColumn('userid', 'integer')
-            ->addColumn('deptid', 'integer')
             ->addColumn('groupname', 'string')
             ->addColumn('department', 'string')
             ->addColumn('visibility', 'string')

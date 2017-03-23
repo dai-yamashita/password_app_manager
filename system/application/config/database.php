@@ -39,8 +39,8 @@ $active_record = TRUE;
 
 $db['default']['hostname'] = "localhost";
 $db['default']['username'] = "root";
-$db['default']['password'] = "";
-$db['default']['database'] = "pwmanager1";
+$db['default']['password'] = "webdevel";
+$db['default']['database'] = "passwordmanager_dev";
 $db['default']['dbdriver'] = "mysql";
 $db['default']['dbprefix'] = "";
 $db['default']['pconnect'] = TRUE;
