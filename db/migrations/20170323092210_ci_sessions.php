@@ -2,7 +2,7 @@
 
 use Phinx\Migration\AbstractMigration;
 
-class Sitesettings extends AbstractMigration
+class CiSessions extends AbstractMigration
 {
     /**
      * Change Method.
@@ -27,14 +27,12 @@ class Sitesettings extends AbstractMigration
      */
     public function change()
     {
-      // create the table
-      $table = $this->table('sitesettings');
-      $table->addColumn('use_captcha', 'integer')
-            ->addColumn('projectid', 'integer')
-            ->addColumn('account_expired_message', 'string')
-            ->addColumn('key', 'string')
-            ->addColumn('value', 'string')
-            ->addColumn('admin_email', 'string')
+      $table = $this->table('ci_sessions');
+      $table->addColumn('ip_address', 'string', array('null' => false, 'limit' => 45))
+            ->addColumn('last_activity', 'integer', array('null' => false, 'limit' => 10))
+            ->addColumn('user_agent', 'string')
+            ->addColumn('session_id', 'string')
+            ->addIndex(array('session_id'), array('unique' => true, 'name' => 'ci_sessions_session_id'))
             ->create();
     }
 }

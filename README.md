@@ -6,9 +6,9 @@ $ git clone --depth=1 git@github.com:sudogem/password_app_manager.git
 
 
 Install phinx library using Composer:   
-$ curl -sS https://getcomposer.org/installer | sudo php — –install-dir=/usr/local/bin –filename=composer    
+$ curl -sS https://getcomposer.org/installer | sudo php — –install-dir=/usr/local/bin –filename=composer     <-- install Composer if it doesnt exist yet     
 $ composer require robmorgan/phinx    
-$ composer install         <-- it will install phinx library and its dependencies on /vendor    
+$ composer install         <-- install phinx library and its dependencies on /vendor    
 $ php vendor/bin/phinx     <-- lets check if phinx was installed    
 
 ##### DB Migration     
@@ -17,9 +17,9 @@ e.g. FOR LINUX: artheman@ub3c:/var/www/_php/password_app_manager(master)$ php ve
 e.g. FOR WINDOWS: $ vendor/bin/phinx create UserGroups    
 
 #### Technology stacks   
-* Codeigniter (php framework)
-* phinx (php db migration)
-* MySql
+* Codeigniter - php framework (http://codeigniter.com)
+* phinx - php db migration (http://phinx.org)
+* MySql - db (http://mysql.com)
 
 #### Developer    
 password_app_manager &copy;2016 Arman Ortega. Released under the MIT License.    

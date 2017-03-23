@@ -23,7 +23,7 @@ $config['base_url']	= "http://localhost/password_app_manager";
 | variable so that it is blank.
 |
 */
-$config['index_page'] = "";
+$config['index_page'] = "index.php";
 
 /*
 |--------------------------------------------------------------------------
