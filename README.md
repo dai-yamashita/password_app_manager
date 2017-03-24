@@ -6,10 +6,14 @@ $ git clone --depth=1 git@github.com:sudogem/password_app_manager.git
 
 
 Install phinx library using Composer:   
+For Linux:    
 $ curl -sS https://getcomposer.org/installer | sudo php — –install-dir=/usr/local/bin –filename=composer     <-- install Composer if it doesnt exist yet     
 $ composer require robmorgan/phinx    
 $ composer install         <-- install phinx library and its dependencies on /vendor    
 $ php vendor/bin/phinx     <-- lets check if phinx was installed    
+
+For Windows:    
+Download and run [Composer-Setup](https://getcomposer.org/Composer-Setup.exe)     
 
 ##### DB Migration     
 If you want to create another database table, in root folder of the app, run the phinx create command it will create a migration script inside db/migrations folder:    
