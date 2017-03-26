@@ -6,7 +6,7 @@
 	<link href="<?php echo base_url() ?>themes/default/style.css" rel="stylesheet" media="all" />
 	<!--[if IE 6]>
 	<link href="<?php echo base_url() ?>themes/default/css/ie6.css" rel="stylesheet" media="all" />
-	
+
 	<script src="<?php echo base_url() ?>themes/default/js/pngfix.js"></script>
 	<script>
 	  /* EXAMPLE */
@@ -47,14 +47,14 @@ $confirmation_code = array(
 ?>
 <?php echo isset($flash) ? flash($flash) : ''; ?>
 
-                            
+
 								<form action="<?php echo site_url('admin/auth/login') ?>" method="post" class="forms" name="form" >
 									<ul>
 										<li>
 											<label class="desc">ID:</label>
 											<div><input type="text" tabindex="1" maxlength="255" value="" class="field text full" name="tmpid" /></div>
 										</li>
-                                    
+
 										<li>
 											<label class="desc">Username:</label>
 											<div><input type="text" tabindex="1" maxlength="255" value="" class="field text full" name="username" /></div>
@@ -71,14 +71,14 @@ $confirmation_code = array(
 <li>
 Enter the code exactly as it appears.<br />NOTE: There is no zero. Case insensitive.
 
-<?php echo $this->dx_auth->get_captcha_image(); ?>
+image:<?php echo $this->dx_auth->get_captcha_image(); ?><br />
 <label class="desc">Confirmation Code</label>
 <div><input type="text" name="captcha" value="" id="captcha" maxlength="8" class="field text full"  /></div>
-</li>	
-<?php endif; ?>                                        
+</li>
+<?php endif; ?>
 										<li class="buttons" style="text-align:right">
-											<button type="submit" value="Submit" class="ui-state-default ui-corner-all" id="saveForm">Login</button>                                         
-                                        <a href="<?= site_url("forgotpassword/") ?>" style="font-size:15px ; padding-right:15px; float:right; line-height:2.5em " >Forgot your password? </a>                                            
+											<button type="submit" value="Submit" class="ui-state-default ui-corner-all" id="saveForm">Login</button>
+                                        <a href="<?= site_url("forgotpassword/") ?>" style="font-size:15px ; padding-right:15px; float:right; line-height:2.5em " >Forgot your password? </a>
 
 										</li>
 									</ul>

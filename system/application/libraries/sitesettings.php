@@ -17,10 +17,11 @@ class Sitesettings {
     function get_settings($k) {
         $this->CI->db->where('key', $k);
         $tmp = $this->CI->db->get('sitesettings')->row_array();
+        // print 'get_settings:';
+        // print $k;
+        // print_r($tmp);
         $tmp = $tmp['value'];
         return $tmp;
     }
 
-}	
-
-
+}

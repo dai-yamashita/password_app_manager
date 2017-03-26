@@ -32,6 +32,7 @@ class CiSessions extends AbstractMigration
             ->addColumn('last_activity', 'integer', array('null' => false, 'limit' => 10))
             ->addColumn('user_agent', 'string')
             ->addColumn('session_id', 'string')
+            ->addColumn('user_data', 'string')
             ->addIndex(array('session_id'), array('unique' => true, 'name' => 'ci_sessions_session_id'))
             ->create();
     }

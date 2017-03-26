@@ -29,12 +29,8 @@ class Sitesettings extends AbstractMigration
     {
       // create the table
       $table = $this->table('sitesettings');
-      $table->addColumn('use_captcha', 'integer')
-            ->addColumn('projectid', 'integer')
-            ->addColumn('account_expired_message', 'string')
-            ->addColumn('key', 'string')
+      $table->addColumn('key', 'string')
             ->addColumn('value', 'string')
-            ->addColumn('admin_email', 'string')
             ->create();
     }
 }

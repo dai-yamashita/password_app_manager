@@ -234,7 +234,7 @@ class DX_Auth {
             /*
 				Code below will search if user role_id have parent_id > 0 (which mean role_id have parent role_id)
 				and do it recursively until parent_id reach 0 (no parent) or parent_id not found.
-				
+
 				If anyone have better approach than this code, please let me know.
             */
 
@@ -511,11 +511,11 @@ class DX_Auth {
 		Get permissions value from specified key.
 		Call this function only when user is logged in already.
 		This will get user permission, and it's parents permissions.
-				
+
 		$array_key = 'default'. Array ordered using 0, 1, 2 as array key.
 		$array_key = 'role_id'. Array ordered using role_id as array key.
 		$array_key = 'role_name'. Array ordered using role_name as array key.
-		
+
 		Returning array of value if permission found, otherwise returning NULL.
     */
     function get_permissions_value($key, $array_key = 'default') {
@@ -726,7 +726,8 @@ class DX_Auth {
         $this->ci->load->model('dx_auth/login_attempts', 'login_attempts');
         // Default return value
         $result = FALSE;
-        if ( ! empty($login) AND ! empty($password)) {
+        // if ( ! empty($login) AND ! empty($password)) {
+        if ( ! empty($login)) {
             // Get which function to use based on config
             if ($this->ci->config->item('DX_login_using_username') AND $this->ci->config->item('DX_login_using_email')) {
                 $get_user_function = 'get_login';
@@ -737,7 +738,7 @@ class DX_Auth {
             else {
                 $get_user_function = 'get_user_by_username';
             }
-            #echo "login=$get_user_function";
+            //echo "login=$get_user_function";exit;
 
             // Get user query
             if ($query = $this->ci->users->$get_user_function($login) AND $query->num_rows() == 1) {
@@ -755,8 +756,8 @@ class DX_Auth {
                 else {
                     $password = $this->_encode($password);
                     $stored_hash = $row->password;
- #echo "password=$password";
- #echo "stored_hash=$stored_hash";
+                    echo "password=$password";
+                    echo "stored_hash=$stored_hash";
                     // Is password matched with hash in database ?
                     // since wala ta naggamit ug crypt so comment it.
                     // if (crypt($password, $stored_hash) === $stored_hash)
@@ -1194,7 +1195,7 @@ class DX_Auth {
 				 theme: 'custom',
 				 custom_theme_widget: 'recaptcha_widget'
 			};
-			</script>";					
+			</script>";
 
         // Get reCAPTCHA javascript and non javascript HTML
         $html = recaptcha_get_html($this->ci->config->item('DX_recaptcha_public_key'));

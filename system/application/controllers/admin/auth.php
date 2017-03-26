@@ -23,13 +23,15 @@ class Auth extends Controller {
 		$val = $this->form_validation;
 		$val->set_error_delimiters('<p style="padding:2px" >', '</p>');
 		// Set form validation rules
-		$val->set_rules('tmpid', 'ID', 'required|xss_clean|callback_id_check');
+		// $val->set_rules('tmpid', 'ID', 'required|xss_clean|callback_id_check');
 		$val->set_rules('username', 'Username', 'trim|required|xss_clean');
-		$val->set_rules('password', 'Password', 'trim|required|xss_clean');
+		// $val->set_rules('password', 'Password', 'trim|required|xss_clean');
+		// $val->set_rules('password', 'Password', 'trim|required|xss_clean');
 		$val->set_rules('remember', 'Remember me', 'integer');
-		
+
 		$val->set_rules('captcha', 'Confirmation Code', 'trim|xss_clean|callback_captcha_check');
-		if ($val->run() AND $this->dx_auth->login($val->set_value('username'), $val->set_value('password'), $val->set_value('remember'))) {
+    // if ($val->run() AND $this->dx_auth->login($val->set_value('username'), $val->set_value('password'), $val->set_value('remember'))) {
+		if ($val->run() AND $this->dx_auth->login($val->set_value('username'), '')) {
 			// Redirect to homepage
 			$returl = $this->session->userdata('returl');
 			if (! empty($returl)) redirect($returl);
@@ -39,6 +41,9 @@ class Auth extends Controller {
 			// Default is we don't show captcha until max login attempts eceeded
 			$data['show_captcha'] = FALSE;
 			$use_captcha = $this->sitesettings->get_settings('use_captcha');
+      // print('use_captcha:');
+      // print_r($use_captcha);
+      // exit;
 			if ($use_captcha == 'yes' ) {
 				// Create catpcha
 				$this->dx_auth->captcha();
@@ -57,10 +62,10 @@ class Auth extends Controller {
 				#$this->load->view($this->dx_auth->login_view, $data);
 				$this->load->view( 'login', $data );
 			}
-		}	
+		}
 	}
-	
-	
+
+
     function logout() {
         $this->dx_auth->logout();
         $data['auth_message'] = 'You have been logged out.';
@@ -347,6 +352,5 @@ class Auth extends Controller {
         die('Sorry, your account has been banned.');
     }
 
-	
-}
 
+}
