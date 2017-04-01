@@ -44,6 +44,7 @@ class Domains extends AbstractMigration
             ->addColumn('pwlength', 'string')
             ->addColumn('mark', 'string')
             ->addColumn('notes', 'string')
+            ->addColumn('created', 'datetime')
             ->create();
     }
 }
