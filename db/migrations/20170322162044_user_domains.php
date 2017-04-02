@@ -30,6 +30,7 @@ class UserDomains extends AbstractMigration
       $table = $this->table('user_domains');
       $table->addColumn('user_id', 'integer')
             ->addColumn('domain_id', 'integer')
+            ->addColumn('user_domain_id', 'integer')
             ->create();
     }
 }

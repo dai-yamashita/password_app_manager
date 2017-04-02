@@ -16,13 +16,13 @@ class Users extends AbstractSeed
     {
       $data = array(
         'tmpid' => 1,
-        'username' => 'Admin',
-        'password' => 'admin',
+        'username' => 'admin',
+        'password' => '74be16979710d4c4e7c6647856088456',
         'firstname' => 'admin',
         'lastname' => 'admin',
         'email' => 'admin@mail.com',
         'skypeid' => 'admin',
-        'role_id' => 1,
+        'role_id' => 2,
         'position' => '',
       );
       $table = $this->table('users');
