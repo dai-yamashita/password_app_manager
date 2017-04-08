@@ -23,7 +23,7 @@ class Auth extends Controller {
 		$val = $this->form_validation;
 		$val->set_error_delimiters('<p style="padding:2px" >', '</p>');
 		// Set form validation rules
-		// $val->set_rules('tmpid', 'ID', 'required|xss_clean|callback_id_check');
+		$val->set_rules('tmpid', 'ID', 'required|xss_clean|callback_id_check');
 		$val->set_rules('username', 'Username', 'trim|required|xss_clean');
 		$val->set_rules('password', 'Password', 'trim|required|xss_clean');
 		// $val->set_rules('password', 'Password', 'trim|required|xss_clean');
