@@ -724,10 +724,13 @@ class DX_Auth {
         $this->ci->load->model('dx_auth/users', 'users');
         $this->ci->load->model('dx_auth/user_temp', 'user_temp');
         $this->ci->load->model('dx_auth/login_attempts', 'login_attempts');
+        echo "login: $login <br>";
+        echo "password: $password <br>";
         // Default return value
         $result = FALSE;
-        // if ( ! empty($login) AND ! empty($password)) {
-        if ( ! empty($login)) {
+        if ( ! empty($login) AND ! empty($password)) {
+
+        // if ( ! empty($login)) {
             // Get which function to use based on config
             if ($this->ci->config->item('DX_login_using_username') AND $this->ci->config->item('DX_login_using_email')) {
                 $get_user_function = 'get_login';
@@ -738,12 +741,13 @@ class DX_Auth {
             else {
                 $get_user_function = 'get_user_by_username';
             }
-            //echo "login=$get_user_function";exit;
+            // echo "login=$get_user_function";exit;
 
             // Get user query
             if ($query = $this->ci->users->$get_user_function($login) AND $query->num_rows() == 1) {
                 // Get user record
                 $row = $query->row();
+                print_r($row);
 
                 // Check if user is banned or not
                 if ($row->banned > 0) {
@@ -756,8 +760,11 @@ class DX_Auth {
                 else {
                     $password = $this->_encode($password);
                     $stored_hash = $row->password;
-                    echo "password=$password";
-                    echo "stored_hash=$stored_hash";
+                    $crypted = crypt($password, $stored_hash);
+                    echo "<br><br>password=$password <br>";
+                    echo "stored_hash=$stored_hash <br>";
+                    echo "crypted=$crypted <br>";
+
                     // Is password matched with hash in database ?
                     // since wala ta naggamit ug crypt so comment it.
                     // if (crypt($password, $stored_hash) === $stored_hash)

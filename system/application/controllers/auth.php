@@ -10,21 +10,21 @@ class Auth extends Controller
 	function Auth()
 	{
 		parent::Controller();
-		
+
 		$this->load->library('Form_validation');
-		$this->load->library('DX_Auth');			
-		
+		$this->load->library('DX_Auth');
+
 		$this->load->helper('url');
 		$this->load->helper('form');
 	}
-	
+
 	function index()
 	{
 		$this->login();
 	}
-	
+
 	/* Callback function */
-	
+
 	function username_check($username)
 	{
 		$result = $this->dx_auth->is_username_available($username);
@@ -32,10 +32,10 @@ class Auth extends Controller
 		{
 			$this->form_validation->set_message('username_check', 'Username already exist. Please choose another username.');
 		}
-				
+
 		return $result;
 	}
-	
+
 	function id_check($id)
 	{
 		$rs = $this->db->get_where( 'users', array('tmpid' => $id, 'username' => $_POST['username'] ))->result_array();
@@ -45,7 +45,7 @@ class Auth extends Controller
 		}
 		return TRUE;
 	}
-	
+
 	function email_check($email)
 	{
 		$result = $this->dx_auth->is_email_available($email);
@@ -53,7 +53,7 @@ class Auth extends Controller
 		{
 			$this->form_validation->set_message('email_check', 'Email is already used by another user. Please choose another email address.');
 		}
-				
+
 		return $result;
 	}
 
@@ -65,49 +65,49 @@ class Auth extends Controller
 			if ($this->dx_auth->is_captcha_expired())
 			{
 				// Will replace this error msg with $lang
-				$this->form_validation->set_message('captcha_check', 'Your confirmation code has expired. Please try again.');			
+				$this->form_validation->set_message('captcha_check', 'Your confirmation code has expired. Please try again.');
 				$result = FALSE;
 			}
 			elseif ( ! $this->dx_auth->is_captcha_match($code))
 			{
-				$this->form_validation->set_message('captcha_check', 'Your confirmation code does not match the one in the image. Try again.');			
+				$this->form_validation->set_message('captcha_check', 'Your confirmation code does not match the one in the image. Try again.');
 				$result = FALSE;
 			}
 
-			return $result;		
-		}		
-		
+			return $result;
+		}
+
 	}
-	
+
 	function recaptcha_check()
 	{
-		$result = $this->dx_auth->is_recaptcha_match();		
+		$result = $this->dx_auth->is_recaptcha_match();
 		if ( ! $result)
 		{
 			$this->form_validation->set_message('recaptcha_check', 'Your confirmation code does not match the one in the image. Try again.');
 		}
-		
+
 		return $result;
 	}
-	
+
 	/* End of Callback function */
-	
-	
+
+
 	function login()
 	{
 		if ( ! $this->dx_auth->is_logged_in())
 		{
 			//print_r( $_POST ) ;
 			$val = $this->form_validation;
-			//$this->output->enable_profiler(TRUE); 
+			//$this->output->enable_profiler(TRUE);
 			// Set form validation rules
 			$val->set_rules('tmpid', 'ID', 'required|xss_clean|callback_id_check');
 			$val->set_rules('username', 'Username', 'trim|required|xss_clean');
 			$val->set_rules('password', 'Password', 'trim|required|xss_clean');
-			$val->set_rules('remember', 'Remember me', 'integer');			
+			$val->set_rules('remember', 'Remember me', 'integer');
 			$val->set_rules('captcha', 'Confirmation Code', 'trim|xss_clean|callback_captcha_check');
-			
-				
+
+
 			if ($val->run() AND $this->dx_auth->login($val->set_value('username'), $val->set_value('password'), $val->set_value('remember')))
 			{
 				// Redirect to homepage
@@ -123,14 +123,14 @@ class Auth extends Controller
 					$this->dx_auth->deny_access('banned');
 				}
 				else
-				{						
+				{
 					// Default is we don't show captcha until max login attempts eceeded
 					$data['show_captcha'] = FALSE;
  					$data['error'] = $this->form_validation->error_string();
 					$tmp = $this->sitesettings->get_settings('use_captcha');
 					if ($tmp['value'] == 'yes' ) {
-						// Create catpcha						
-						$this->dx_auth->captcha();						
+						// Create catpcha
+						$this->dx_auth->captcha();
 						// Set view data to show captcha on view file
 						$data['show_captcha'] = TRUE;
 					}
@@ -146,27 +146,27 @@ class Auth extends Controller
 			$this->load->view($this->dx_auth->logged_in_view, $data);
 		}
 	}
-	
+
 	function logout()
 	{
-		$this->dx_auth->logout();		
-		$data['auth_message'] = 'You have been logged out.';		
+		$this->dx_auth->logout();
+		$data['auth_message'] = 'You have been logged out.';
 		$this->load->view($this->dx_auth->logout_view, $data);
 		redirect('');
 	}
-	
+
 	function register()
-	{		
+	{
 		if ( ! $this->dx_auth->is_logged_in() AND $this->dx_auth->allow_registration)
-		{	
+		{
 			$val = $this->form_validation;
-			
-			// Set form validation rules			
+
+			// Set form validation rules
 			$val->set_rules('username', 'Username', 'trim|required|xss_clean|min_length['.$this->min_username.']|max_length['.$this->max_username.']|callback_username_check|alpha_dash');
 			$val->set_rules('password', 'Password', 'trim|required|xss_clean|min_length['.$this->min_password.']|max_length['.$this->max_password.']|matches[confirm_password]');
 			$val->set_rules('confirm_password', 'Confirm Password', 'trim|required|xss_clean');
 			$val->set_rules('email', 'Email', 'trim|required|xss_clean|valid_email|callback_email_check');
-			
+
 			if ($this->dx_auth->captcha_registration)
 			{
 				$val->set_rules('captcha', 'Confirmation Code', 'trim|xss_clean|required|callback_captcha_check');
@@ -174,17 +174,17 @@ class Auth extends Controller
 
 			// Run form validation and register user if it's pass the validation
 			if ($val->run() AND $this->dx_auth->register($val->set_value('username'), $val->set_value('password'), $val->set_value('email')))
-			{	
+			{
 				// Set success message accordingly
 				if ($this->dx_auth->email_activation)
 				{
 					$data['auth_message'] = 'You have successfully registered. Check your email address to activate your account.';
 				}
 				else
-				{					
+				{
 					$data['auth_message'] = 'You have successfully registered. '.anchor(site_url($this->dx_auth->login_uri), 'Login');
 				}
-				
+
 				// Load registration success page
 				$this->load->view($this->dx_auth->register_success_view, $data);
 			}
@@ -193,7 +193,7 @@ class Auth extends Controller
 				// Is registration using captcha
 				if ($this->dx_auth->captcha_registration)
 				{
-					$this->dx_auth->captcha();										
+					$this->dx_auth->captcha();
 				}
 
 				// Load registration page
@@ -211,19 +211,19 @@ class Auth extends Controller
 			$this->load->view($this->dx_auth->logged_in_view, $data);
 		}
 	}
-	
+
 	function register_recaptcha()
 	{
 		if ( ! $this->dx_auth->is_logged_in() AND $this->dx_auth->allow_registration)
-		{	
+		{
 			$val = $this->form_validation;
-			
+
 			// Set form validation rules
 			$val->set_rules('username', 'Username', 'trim|required|xss_clean|min_length['.$this->min_username.']|max_length['.$this->max_username.']|callback_username_check|alpha_dash');
 			$val->set_rules('password', 'Password', 'trim|required|xss_clean|min_length['.$this->min_password.']|max_length['.$this->max_password.']|matches[confirm_password]');
 			$val->set_rules('confirm_password', 'Confirm Password', 'trim|required|xss_clean');
 			$val->set_rules('email', 'Email', 'trim|required|xss_clean|valid_email|callback_email_check');
-			
+
 			// Is registration using captcha
 			if ($this->dx_auth->captcha_registration)
 			{
@@ -235,17 +235,17 @@ class Auth extends Controller
 
 			// Run form validation and register user if it's pass the validation
 			if ($val->run() AND $this->dx_auth->register($val->set_value('username'), $val->set_value('password'), $val->set_value('email')))
-			{	
+			{
 				// Set success message accordingly
 				if ($this->dx_auth->email_activation)
 				{
 					$data['auth_message'] = 'You have successfully registered. Check your email address to activate your account.';
 				}
 				else
-				{					
+				{
 					$data['auth_message'] = 'You have successfully registered. '.anchor(site_url($this->dx_auth->login_uri), 'Login');
 				}
-				
+
 				// Load registration success page
 				$this->load->view($this->dx_auth->register_success_view, $data);
 			}
@@ -266,7 +266,7 @@ class Auth extends Controller
 			$this->load->view($this->dx_auth->logged_in_view, $data);
 		}
 	}
-	
+
 	function activate()
 	{
 		// Get username and key
@@ -274,7 +274,7 @@ class Auth extends Controller
 		$key = $this->uri->segment(4);
 
 		// Activate user
-		if ($this->dx_auth->activate($username, $key)) 
+		if ($this->dx_auth->activate($username, $key))
 		{
 			$data['auth_message'] = 'Your account have been successfully activated. '.anchor(site_url($this->dx_auth->login_uri), 'Login');
 			$this->load->view($this->dx_auth->activate_success_view, $data);
@@ -285,11 +285,11 @@ class Auth extends Controller
 			$this->load->view($this->dx_auth->activate_failed_view, $data);
 		}
 	}
-	
+
 	function forgot_password()
 	{
 		$val = $this->form_validation;
-		
+
 		// Set form validation rules
 		$val->set_rules('login', 'Username or Email address', 'trim|required|xss_clean');
 
@@ -304,7 +304,7 @@ class Auth extends Controller
 			$this->load->view($this->dx_auth->forgot_password_view);
 		}
 	}
-	
+
 	function reset_password()
 	{
 		// Get username and key
@@ -323,19 +323,19 @@ class Auth extends Controller
 			$this->load->view($this->dx_auth->reset_password_failed_view, $data);
 		}
 	}
-	
+
 	function change_password()
 	{
 		// Check if user logged in or not
 		if ($this->dx_auth->is_logged_in())
-		{			
+		{
 			$val = $this->form_validation;
-			
+
 			// Set form validation
 			$val->set_rules('old_password', 'Old Password', 'trim|required|xss_clean|min_length['.$this->min_password.']|max_length['.$this->max_password.']');
 			$val->set_rules('new_password', 'New Password', 'trim|required|xss_clean|min_length['.$this->min_password.']|max_length['.$this->max_password.']|matches[confirm_new_password]');
 			$val->set_rules('confirm_new_password', 'Confirm new Password', 'trim|required|xss_clean');
-			
+
 			// Validate rules and change password
 			if ($val->run() AND $this->dx_auth->change_password($val->set_value('old_password'), $val->set_value('new_password')))
 			{
@@ -352,18 +352,18 @@ class Auth extends Controller
 			// Redirect to login page
 			$this->dx_auth->deny_access('login');
 		}
-	}	
-	
+	}
+
 	function cancel_account()
 	{
 		// Check if user logged in or not
 		if ($this->dx_auth->is_logged_in())
-		{			
+		{
 			$val = $this->form_validation;
-			
+
 			// Set form validation rules
 			$val->set_rules('password', 'Password', "trim|required|xss_clean");
-			
+
 			// Validate rules and change password
 			if ($val->run() AND $this->dx_auth->cancel_account($val->set_value('password')))
 			{
@@ -389,7 +389,7 @@ class Auth extends Controller
 		{
 			echo 'My role: '.$this->dx_auth->get_role_name().'<br/>';
 			echo 'My permission: <br/>';
-			
+
 			if ($this->dx_auth->get_permission_value('edit') != NULL AND $this->dx_auth->get_permission_value('edit'))
 			{
 				echo 'Edit is allowed';
@@ -398,9 +398,9 @@ class Auth extends Controller
 			{
 				echo 'Edit is not allowed';
 			}
-			
+
 			echo '<br/>';
-			
+
 			if ($this->dx_auth->get_permission_value('delete') != NULL AND $this->dx_auth->get_permission_value('delete'))
 			{
 				echo 'Delete is allowed';
