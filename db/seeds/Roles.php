@@ -16,9 +16,8 @@ class Roles extends AbstractSeed
     {
       $data = array(
         array('id' => 1, 'name' => 'administrator', 'parent_id' => 0),
-        array('id' => 2, 'name' => 'owner', 'parent_id' => 0),
-        array('id' => 3, 'name' => 'member', 'parent_id' => 0),
-        array('id' => 4, 'name' => 'manager', 'parent_id' => 0)
+        array('id' => 2, 'name' => 'manager', 'parent_id' => 0),
+        array('id' => 3, 'name' => 'member', 'parent_id' => 0)
       );
       $table = $this->table('roles');
       $table->insert($data)

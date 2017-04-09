@@ -9,8 +9,7 @@ class Account extends Controller {
         parent::Controller();
         if (! $this->dx_auth->is_logged_in()) redirect('login');
         $this->load->library( 'form_validation' );
-        $this->logged_userid = $this->dx_auth->get_user_id();        
-        #$this->dx_auth->check_uri_permissions();
+        $this->logged_userid = $this->dx_auth->get_user_id();
         $this->load->model('dx_auth/users', 'users');
         $this->load->model('dx_auth/roles', 'roles');
 
@@ -23,12 +22,12 @@ class Account extends Controller {
 
 // </editor-fold>
 
-    
+
 // <editor-fold defaultstate="collapsed" desc=" form ">
     function editprofile() {
         $id = isset($_POST['user_id']) ? intval($_POST['user_id']) : $this->uri->segment(4);
-        if ($id != $this->logged_userid) $this->dx_auth->deny_access('deny');        
-        
+        if ($id != $this->logged_userid) $this->dx_auth->deny_access('deny');
+
         if(! $id) {
             $this->form_validation->set_rules('username', 'username', 'required|alpha_numeric|callback_username_check');
             $this->form_validation->set_rules('password', 'password', 'required|trim');

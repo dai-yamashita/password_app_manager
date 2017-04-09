@@ -4,7 +4,6 @@ class Alert extends Controller {
     function __construct() {
         parent::Controller();
         if (! $this->dx_auth->is_logged_in()) redirect('login');
-        $this->dx_auth->check_uri_permissions();
         $this->load->library( 'form_validation' );
         $this->form_validation->set_error_delimiters('<p style="padding:2px" >', '</p>');
         $this->paging = $this->paging->get_paging_template();
@@ -100,7 +99,7 @@ class Alert extends Controller {
             $data['results'] 	= $rs;
             $this->template->write_view('content', 'default/alert_browse', $data);
         }
-        
+
         $this->template->render();
     }
 // </editor-fold>
@@ -139,4 +138,3 @@ class Alert extends Controller {
 
 
 }
-
