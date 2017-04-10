@@ -17,7 +17,10 @@ class Sitesettings extends AbstractSeed
       $data =array(
         array('key' => 'timezone', 'value' => 'UTC8'),
         array('key' => 'use_captcha', 'value' => 'no'),
-        array('key' => 'isdaylightsaving', 'value' => 'no')
+        array('key' => 'isdaylightsaving', 'value' => 'no'),
+        array('key' => 'account_expired_message', 'value' => 'Your account is already expired.'),
+        array('key' => 'admin_email', 'value' => 'admin@mail.com'),
+        array('key' => 'noreply_email', 'value' => 'noreply@mail.com')
       );
       $table = $this->table('sitesettings');
       $table->insert($data)

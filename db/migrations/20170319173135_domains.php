@@ -43,7 +43,7 @@ class Domains extends AbstractMigration
             ->addColumn('pwlength', 'string')
             ->addColumn('mark', 'string')
             ->addColumn('notes', 'string')
-            ->addColumn('customtemplate', 'text', array('null' => false, 'default' => ''))
+            ->addColumn('customtemplate', 'text', array('null' => false))
             ->addColumn('created', 'integer')
             ->create();
     }

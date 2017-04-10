@@ -27,14 +27,14 @@ class Alerts extends AbstractMigration
      */
     public function change()
     {
-      $table = $this->table('alerts');
+      $table = $this->table('alerts', array('id' => 'alertid'));
       $table->addColumn('title', 'string', array('null' => false, 'limit' => 45))
-            ->addColumn('last_activity', 'integer', array('null' => false, 'limit' => 10))
             ->addColumn('isread', 'integer')
             ->addColumn('domainid', 'integer')
+            ->addColumn('alert', 'text')
             ->addColumn('to', 'string')
             ->addColumn('from', 'string')
-            ->addColumn('created', 'datetime')
+            ->addColumn('created', 'integer')
             ->create();
     }
 }

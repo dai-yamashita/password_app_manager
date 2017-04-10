@@ -18,8 +18,10 @@ class Sitesettings {
         $this->CI->db->where('key', $k);
         $tmp = $this->CI->db->get('sitesettings')->row_array();
         // print 'get_settings:';
-        // print $k;
+        // echo '<pre>';
+        // print $k;print ' ';
         // print_r($tmp);
+        // echo '</pre>';
         $tmp = $tmp['value'];
         return $tmp;
     }
