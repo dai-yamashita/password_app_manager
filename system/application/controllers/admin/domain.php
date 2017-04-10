@@ -155,8 +155,7 @@ class Domain extends Controller {
     function view() {
         $id = isset($_POST['domain_id']) ? intval($_POST['domain_id']) : $this->uri->segment(4);
         $data['customfields'] = $this->mdl_customfields->list_customfields('domains');
-  $data['backurl'] = site_url('admin/domain/browse');
-
+        $data['backurl'] = site_url('admin/domain/browse');
         if ($id) {
             if ($this->dx_auth->is_role('member')) {
                 #$this->mdl_domains->where = array('user_domains.domain_id' => $id);

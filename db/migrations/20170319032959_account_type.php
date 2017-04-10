@@ -32,8 +32,6 @@ class AccountType extends AbstractMigration
       $table->addColumn('acctype', 'string')
             ->addColumn('desc', 'string')
             ->addColumn('created', 'integer')
-            ->addColumn('user_id', 'integer', array('null' => true))
-            ->addColumn('domain_id', 'integer', array('null' => true))
             ->create();
     }
 }

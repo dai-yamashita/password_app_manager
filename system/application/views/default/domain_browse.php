@@ -21,23 +21,23 @@
 $uri = $this->uri->uri_to_assoc(2);
 $uri['field'] = isset($uri['field']) ? $uri['field'] : '';
 
-$arrow1 = (($uri['field'] == 'project') && $sortby == 'asc') ? 'arrowdown' : (($uri['field'] == 'project') ? 'arrowup' : '') ; 
-$arrow2 = (($uri['field'] == 'acctype') && $sortby == 'asc') ? 'arrowdown' : (($uri['field'] == 'acctype') ? 'arrowup' : '') ; 
-$arrow3 = (($uri['field'] == 'changefreq') && $sortby == 'asc') ? 'arrowdown' : (($uri['field'] == 'changefreq') ? 'arrowup' : '') ; 
+$arrow1 = (($uri['field'] == 'project') && $sortby == 'asc') ? 'arrowdown' : (($uri['field'] == 'project') ? 'arrowup' : '') ;
+$arrow2 = (($uri['field'] == 'acctype') && $sortby == 'asc') ? 'arrowdown' : (($uri['field'] == 'acctype') ? 'arrowup' : '') ;
+$arrow3 = (($uri['field'] == 'changefreq') && $sortby == 'asc') ? 'arrowdown' : (($uri['field'] == 'changefreq') ? 'arrowup' : '') ;
 ?>
-	<div class="groupby2" >
+  <div class="groupby2" >
     <ul>
 <!--    <li><a href="<?php echo site_url('admin/domain/department') ?>" >Group by Department</a></li>
 -->    <li><a href="<?php echo site_url("admin/domain/browse/field/project/sort/$sortby") ?>" class="<?= $arrow1 ?>" >Group by Project</a></li>
     <li><a href="<?php echo site_url("admin/domain/browse/field/acctype/sort/$sortby") ?>" class="<?= $arrow2 ?>" >Group by Type</a></li>
-    <li><a href="<?php echo site_url("admin/domain/browse/field/changefreq/sort/$sortby") ?>" class="<?= $arrow3 ?>" >Group by Frequency</a></li>    
+    <li><a href="<?php echo site_url("admin/domain/browse/field/changefreq/sort/$sortby") ?>" class="<?= $arrow3 ?>" >Group by Frequency</a></li>
     </ul>
     </div>
    <div class="clearfix"></div>
- 
+
 <div class="hastable"  >
 <table width="100%" border="1"  id="sort-table" >
-<thead> 
+<thead>
   <tr>
     <th width="17%">Domain</th>
     <th width="4%">Type</th>
@@ -50,11 +50,15 @@ $arrow3 = (($uri['field'] == 'changefreq') && $sortby == 'asc') ? 'arrowdown' : 
     <th width="16%">Last Changed</th>
     <th width="6%">&nbsp;</th>
   </tr>
-</thead>  
+</thead>
 <?php
 $alt = 0;
 if ($results) {
-foreach($results as $v): 
+  // echo '<pre>';
+  // print_r($results);
+  // echo '</pre>';
+foreach($results as $v):
+// print_r($v);
 $id = $v['domain_id'];
 $expirydate = ($v['expirydate'] == '' or $v['expirydate'] == 0) ? '' : date("M d, Y g:i a", $v['expirydate']) ;
 $linkurl = prep_url($v['url']) or '';
@@ -87,12 +91,12 @@ $atts = array(
     <td>
 <a class="btn_no_text btn ui-state-default ui-corner-all tooltip" title="Edit this access" href="<?php echo site_url("admin/domain/form/$id") ?>" >
 <span class="ui-icon ui-icon-wrench"></span>
-</a>        
+</a>
 
 <a class="btn_no_text btn ui-state-default ui-corner-all tooltip" title="view full details" href="<?php echo site_url("admin/domain/view/$id") ?>" >
 <span class="ui-icon ui-icon-circle-zoomin"></span>
 </a>
- 
+
 <a class="btn_no_text btn ui-state-default ui-corner-all tooltip" title="People who access" href="<?php echo site_url("admin/domain/assign_user_project/$id") ?>" >
 <span class="ui-icon ui-icon-person"></span>
 </a>
@@ -102,7 +106,7 @@ $atts = array(
 
 </td>
   </tr>
-<?php endforeach; ?>  
+<?php endforeach; ?>
 <?php } else {?>
 <tr><td colspan="10"><div align="center">No records found.</div></td></tr>
 <?php } ?>
@@ -114,4 +118,3 @@ $atts = array(
 <ul class="pagination">
 <?php echo isset($pagination) ? $pagination : '' ?>
 </ul>
-
