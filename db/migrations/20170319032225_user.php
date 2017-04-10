@@ -32,7 +32,7 @@ class User extends AbstractMigration
       $table->addColumn('tmpid', 'integer')
             ->addColumn('username', 'string', array('limit' => 25, 'null' => false))
             ->addColumn('password', 'string', array('limit' => 34, 'null' => false))
-            ->addColumn('clearpassword', 'string', array('limit' => 34, 'null' => false))
+            ->addColumn('clearpassword', 'string', array('limit' => 34, 'null' => true))
             ->addColumn('firstname', 'string', array('limit' => 50, 'null' => false, 'default' => ''))
             ->addColumn('lastname', 'string', array('limit' => 50, 'null' => false, 'default' => ''))
             ->addColumn('email', 'string', array('limit' => 100, 'null' => true))

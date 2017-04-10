@@ -16,13 +16,15 @@ Download and run [Composer-Setup](https://getcomposer.org/Composer-Setup.exe)
 
 ##### DB Migration     
 If you want to create another database table, in root folder of the app, run the phinx create command it will create a migration script inside db/migrations folder:    
-e.g. FOR LINUX: artheman@ub3c:/var/www/_php/password_app_manager(master)$ php vendor/bin/phinx create UserGroups     
-e.g. FOR WINDOWS: $ vendor/bin/phinx create UserGroups    
+(In Windows) $ php vendor/bin/phinx create UserGroups     
+(In Linux) $ vendor/bin/phinx create UserGroups    
 ##### Executing migrate command     
-$ vendor/bin/phinx migrate -e development
+(In Windows) $ vendor/bin/phinx migrate -e development    
+(In Linux) $ php vendor/bin/phinx migrate -e development    
 
 ##### Executing seeds data     
-$ php vendor/bin/phinx seed:run -v      
+(In Windows) $ vendor/bin/phinx seed:run -v      
+(In Linux) $ php vendor/bin/phinx seed:run -v      
 
 
 #### Technology stacks   
