@@ -33,7 +33,7 @@ class Domain extends Controller {
         $this->csv_path = './uploads/csv/';
         $this->sessd = array('impfile'   => '' ,'delim'     => '' , 'enc' => '' , 'step' => '' );
         // set the maximum memory limit
-	ini_set('memory_limit', '150M');
+  ini_set('memory_limit', '150M');
     }
 // </editor-fold>
 
@@ -54,7 +54,7 @@ class Domain extends Controller {
         $id = isset($_POST['domain_id']) ? intval($_POST['domain_id']) : (!empty($id) ? $id : -1 );
         if ($id) {
             if ( isset($_POST['submit_domain_customfield'])) $this->form_validation->set_rules('domain_customfield', 'custom fieldname', 'required');
-            $this->mdl_domains->where = array('domain_id' => $id);
+            $this->mdl_domains->where = array('domains.domain_id' => $id);
             $rs = $this->mdl_domains->get_all_domains(array('resulttype' => 'row_array'));
             $data['results'] = $rs;
         }
@@ -106,7 +106,7 @@ class Domain extends Controller {
         $uri['p'] = !empty($uri['p']) ? intval($uri['p']) : 0;
         $tmpsortby = ($this->browse['sort']) == 'desc' ? 'asc' : 'desc';
         $data['sortby'] = $tmpsortby ;
-        
+
         if($this->dx_auth->is_role('member')) {
             $total_rows = count($this->mdl_domains->get_all_userdomains($this->logged_userid));
             $this->paging['total_rows']     = $total_rows ;
@@ -130,7 +130,7 @@ class Domain extends Controller {
             );
             $this->template->write_view('content', 'default/domain_browse', $data);
         }
-        
+
 
         $this->template->render();
     }
@@ -144,7 +144,7 @@ class Domain extends Controller {
             $this->db->delete('user_domains', array('domain_id' => $id));
             $this->db->delete('group_domains', array('domain_id' => $id));
             $this->db->delete('domains', array('domain_id' => $id));
-            
+
         }
         $this->session->set_flashdata( 'flash', 'Successfully delete domain.' ) ;
         redirect('admin/domain/browse');
@@ -155,8 +155,8 @@ class Domain extends Controller {
     function view() {
         $id = isset($_POST['domain_id']) ? intval($_POST['domain_id']) : $this->uri->segment(4);
         $data['customfields'] = $this->mdl_customfields->list_customfields('domains');
-	$data['backurl'] = site_url('admin/domain/browse');
-        
+  $data['backurl'] = site_url('admin/domain/browse');
+
         if ($id) {
             if ($this->dx_auth->is_role('member')) {
                 #$this->mdl_domains->where = array('user_domains.domain_id' => $id);
@@ -932,7 +932,6 @@ class Domain extends Controller {
         return TRUE;
     }
 // </editor-fold>
- 
+
 
 }
-

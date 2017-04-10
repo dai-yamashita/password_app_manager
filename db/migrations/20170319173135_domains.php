@@ -28,23 +28,23 @@ class Domains extends AbstractMigration
     public function change()
     {
       // create the table
-      $table = $this->table('domains');
+      $table = $this->table('domains', array('id' => 'domain_id'));
       $table->addColumn('project_id', 'integer')
             ->addColumn('type', 'string')
             ->addColumn('templateid', 'integer')
-            ->addColumn('domain_id', 'integer')
             ->addColumn('changefreq', 'string')
             ->addColumn('importance', 'string')
-            ->addColumn('expirydate', 'string')
-            ->addColumn('last_modified', 'datetime')
+            ->addColumn('expirydate', 'integer', array('null' => true))
+            ->addColumn('last_modified', 'integer', array('null' => true))
             ->addColumn('url', 'string')
-            ->addColumn('loginurl', 'integer')
+            ->addColumn('loginurl', 'string')
             ->addColumn('username', 'string')
             ->addColumn('password', 'string')
             ->addColumn('pwlength', 'string')
             ->addColumn('mark', 'string')
             ->addColumn('notes', 'string')
-            ->addColumn('created', 'datetime')
+            ->addColumn('customtemplate', 'text', array('null' => false, 'default' => ''))
+            ->addColumn('created', 'integer')
             ->create();
     }
 }

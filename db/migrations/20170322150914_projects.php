@@ -27,14 +27,13 @@ class Projects extends AbstractMigration
      */
     public function change()
     {
-      $table = $this->table('projects');
-      $table->addColumn('projectid', 'integer')
-            ->addColumn('domain_id', 'integer')
-            ->addColumn('user_id', 'integer')
+      $table = $this->table('projects', array('id' => 'projectid'));
+      $table->addColumn('domain_id', 'integer', array('null' => true))
+            ->addColumn('user_id', 'integer', array('null' => true))
             ->addColumn('project', 'string')
             ->addColumn('desc', 'string')
             ->addColumn('visibility', 'string')
-            ->addColumn('created', 'datetime')
+            ->addColumn('created', 'integer')
             ->create();
     }
 }

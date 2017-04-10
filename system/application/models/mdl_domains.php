@@ -3,7 +3,7 @@
 class mdl_domains extends Model {
 
     var $where;
-	var $order_by;
+  var $order_by;
     var $domain_id;
 
     function __construct() {
@@ -15,7 +15,7 @@ class mdl_domains extends Model {
         $this->tuser_personal_domains = 'user_personal_domains';
 
     }
- 
+
     function save($params = array()) {
         $default = array(
                 'tablename'		=> $this->tdomains ,
@@ -77,7 +77,7 @@ class mdl_domains extends Model {
 
     function _prep_query() {
         if (isset($this->where)) $this->db->where($this->where);
-		if ($this->order_by) $this->db->order_by($this->order_by);
+    if ($this->order_by) $this->db->order_by($this->order_by);
     }
 
     /**
@@ -88,7 +88,7 @@ class mdl_domains extends Model {
         $ids = $this->input->post( 'user_domains' );
         $ids = !empty($ids) ? $ids : array();
         $gidlist    = $this->input->post( 'gidlist' );
-        $tmpgidlist = explode(',', $gidlist) ;        
+        $tmpgidlist = explode(',', $gidlist) ;
         // delete previous user ids
         if ( !empty($tmpgidlist)) {
             foreach($tmpgidlist as $tmpuserid) {
@@ -207,9 +207,9 @@ class mdl_domains extends Model {
                 $this->db->insert( 'group_projects', $data);
             }
         }
-		
-		// populate also the domains belong in the project to the user.
-		
+
+    // populate also the domains belong in the project to the user.
+
     }
 
     function get_all_domains( $params = array()) {
@@ -230,8 +230,8 @@ class mdl_domains extends Model {
         return $this->db->get( 'domains' )->{$params['resulttype']}();
     }
 
-	 
-	
+
+
     function get_all_userdomains( $userid, $params = array()) {
         $default = array(
                 'rows'			=> '',
@@ -250,12 +250,12 @@ class mdl_domains extends Model {
         $this->db->join('account_type', 'account_type.type_id = domains.type');
         $this->db->join('projects', 'projects.projectid = domains.project_id');
         if($userid != -1) $this->db->join('user_domains', 'user_domains.domain_id = domains.domain_id');
-		
 
-		return $this->db->get( 'domains' )->{$params['resulttype']}();
+
+    return $this->db->get( 'domains' )->{$params['resulttype']}();
     }
 
-	
+
     function get_all_personaldomains( $userid, $params = array()) {
         $default = array(
                 'rows'			=> '',
@@ -310,66 +310,66 @@ class mdl_domains extends Model {
         return $this->db->get( 'group_projects' )->{$params['resulttype']}();
     }
 
-	function get_all_userprojects_old( $uid, $params = array()) {
+  function get_all_userprojects_old( $uid, $params = array()) {
         $default = array(
                 'rows'					=> '',
                 'offset'				=> '',
                 'resulttype'            => 'result_array',
                 'field'                 => '',
                 'sort'                  => 'desc',
-                ) ;		
+                ) ;
         if($uid != -1 && $uid != '') $this->db->where('user_projects.user_id', $uid);
         $params = array_merge( $default, $params );
         !empty($params['rows'] ) ? $this->db->limit($params['rows'], $params['offset'])  : '' ;
         !empty($params['field'] ) ? $this->db->order_by($params['field'], $params['sort']) : $this->db->order_by('projects.projectid', 'desc') ;
-        $this->_prep_query();			
-        $this->db->join('projects', 'user_projects.projectid = projects.projectid');		
+        $this->_prep_query();
+        $this->db->join('projects', 'user_projects.projectid = projects.projectid');
         return $this->db->get( 'user_projects' )->{$params['resulttype']}();
     }
 
-	function get_all_userprojects( $uid, $params = array()) {
-		$default = array(
-			'rows'					=> '',
-			'offset'				=> '',
-			'resulttype'            => 'result_array',
-			'field'                 => '',
-			'sort'                  => 'desc',
-			) ;	
-		$params = array_merge( $default, $params );				
-		
-		$s2 = $s3 = '';
-		if($uid != -1) {
-			$s2 = " WHERE user_domains.user_id = $uid ";		
-		}
-		
-		if(!empty($params['domain_id'])) {
-			$s3 = " AND user_domains.domain_id = " . $params['domain_id'];		
-		}
+  function get_all_userprojects( $uid, $params = array()) {
+    $default = array(
+      'rows'					=> '',
+      'offset'				=> '',
+      'resulttype'            => 'result_array',
+      'field'                 => '',
+      'sort'                  => 'desc',
+      ) ;
+    $params = array_merge( $default, $params );
 
-					
-		$sql = "
-		SELECT
-		user_domains.user_domain_id,
-		user_domains.user_id,
-		projects.*,
-		account_type.acctype,
-		domains.*
-		FROM
-		domains
-		Inner Join user_domains ON user_domains.domain_id = domains.domain_id
-		Inner Join user_projects ON user_projects.projectid = domains.project_id
-		Inner Join projects ON projects.projectid = user_projects.projectid
-		Inner Join account_type ON account_type.type_id = domains.`type`
-		$s2 
-		$s3
-		GROUP BY
-		domains.project_id
-		ORDER BY projects.project ASC
-		";
-		$rs = $this->db->query($sql);
-		return $rs->{$params['resulttype']}();	
-	}
-	
+    $s2 = $s3 = '';
+    if($uid != -1) {
+      $s2 = " WHERE user_domains.user_id = $uid ";
+    }
+
+    if(!empty($params['domain_id'])) {
+      $s3 = " AND user_domains.domain_id = " . $params['domain_id'];
+    }
+
+
+    $sql = "
+    SELECT
+    user_domains.user_domain_id,
+    user_domains.user_id,
+    projects.*,
+    account_type.acctype,
+    domains.*
+    FROM
+    domains
+    Inner Join user_domains ON user_domains.domain_id = domains.domain_id
+    Inner Join user_projects ON user_projects.projectid = domains.project_id
+    Inner Join projects ON projects.projectid = user_projects.projectid
+    Inner Join account_type ON account_type.type_id = domains.`type`
+    $s2
+    $s3
+    GROUP BY
+    domains.project_id
+    ORDER BY projects.project ASC
+    ";
+    $rs = $this->db->query($sql);
+    return $rs->{$params['resulttype']}();
+  }
+
     function get_domainid() {
         return $this->domain_id ;
     }
@@ -440,11 +440,10 @@ class mdl_domains extends Model {
         );
         $params = array_merge( $default, $params );
         $this->db->select('customtemplate');
-        $this->db->where('domain_id', $domainid);
+        $this->db->where('personal_domains.domain_id', $domainid);
         return $this->db->get($this->tpersonal_domains)->{$params['resulttype']}();
     }
 
 
 
 }
-

@@ -3,7 +3,7 @@
 class mdl_projects extends Model {
 
     var $where;
-	var $order_by;
+    var $order_by;
     var $projectid;
 
     function __construct() {
@@ -16,7 +16,7 @@ class mdl_projects extends Model {
         $data = array(
                 'project'	=> $this->input->post( 'project' ),
                 'desc' 		=> $this->input->post( 'desc' ),
-				'visibility'=> $this->input->post( 'visibility' ),
+        'visibility'=> $this->input->post( 'visibility' ),
         );
         if (!empty($this->projectid)) {
             $this->db->where('projectid', $this->projectid);
@@ -30,7 +30,7 @@ class mdl_projects extends Model {
 
     function _prep_query() {
         if ($this->where) $this->db->where($this->where);
-		if ($this->order_by) $this->db->order_by($this->order_by);
+        if ($this->order_by) $this->db->order_by($this->order_by);
     }
 
     function save_user_domains() {
@@ -58,7 +58,7 @@ class mdl_projects extends Model {
                 'rows'			=> '',
                 'offset'		=> '',
                 'resulttype'    => 'result_array',
-				
+
         );
         $params = array_merge( $default, $params );
         !empty($params['rows'] ) ? $this->db->limit($params['rows'], $params['offset'])  : '' ;
@@ -103,42 +103,41 @@ class mdl_projects extends Model {
         $params = array_merge( $default, $params );
         return $this->db->get( $this->tuser_projects )->{$params['resulttype']}();
     }
-	
-	function get_projectlist_by_id($ids) {
-		if ( is_array($ids) && count($ids) > 0) {
-			foreach($ids as $id) {
-				$this->db->or_where('projectid', $id);
-			}		
-			return $this->db->get('projects')->result_array();	
-		}
-		return false;
-	}
-	
-	function delete_user_project($params = array()) {
-		if (!empty($params['user_id']) && !empty($params['projectid']) ) {
-			$projectid = $params['projectid'];
-			$user_id = $params['user_id'];
-			
-			// delete user project
-			$this->db->delete($this->tuser_projects, array('user_id' => $params['user_id'], 'projectid' => $params['projectid']));
-			$sql = "SELECT * FROM user_domains
-			INNER JOIN domains ON domains.domain_id = user_domains.domain_id
-			WHERE domains.project_id  = $projectid
-			AND user_domains.user_id = $user_id ";
-			$rs = $this->db->query($sql);
-			$domains = array();
-			foreach ($rs->result_array() as $row){
-				$domains[]['domain_id'] = $row['domain_id'];			
-			}
-			// remove each domains that belong on that project
-			foreach($domains as $v) {
-				$this->db->delete('user_domains', array('domain_id' => $v['domain_id'], 'user_id' => $user_id) );
-			}			
-		}
-		return TRUE;
-	}
-	
-	
-	
-}
 
+    function get_projectlist_by_id($ids) {
+      if ( is_array($ids) && count($ids) > 0) {
+        foreach($ids as $id) {
+          $this->db->or_where('projectid', $id);
+        }
+        return $this->db->get('projects')->result_array();
+      }
+      return false;
+    }
+
+  function delete_user_project($params = array()) {
+    if (!empty($params['user_id']) && !empty($params['projectid']) ) {
+      $projectid = $params['projectid'];
+      $user_id = $params['user_id'];
+
+      // delete user project
+      $this->db->delete($this->tuser_projects, array('user_id' => $params['user_id'], 'projectid' => $params['projectid']));
+      $sql = "SELECT * FROM user_domains
+      INNER JOIN domains ON domains.domain_id = user_domains.domain_id
+      WHERE domains.project_id  = $projectid
+      AND user_domains.user_id = $user_id ";
+      $rs = $this->db->query($sql);
+      $domains = array();
+      foreach ($rs->result_array() as $row){
+        $domains[]['domain_id'] = $row['domain_id'];
+      }
+      // remove each domains that belong on that project
+      foreach($domains as $v) {
+        $this->db->delete('user_domains', array('domain_id' => $v['domain_id'], 'user_id' => $user_id) );
+      }
+    }
+    return TRUE;
+  }
+
+
+
+}
