@@ -2,7 +2,7 @@
 
 use Phinx\Migration\AbstractMigration;
 
-class LoginTemplates extends AbstractMigration
+class GroupProjects extends AbstractMigration
 {
     /**
      * Change Method.
@@ -27,10 +27,9 @@ class LoginTemplates extends AbstractMigration
      */
     public function change()
     {
-      $table = $this->table('login_templates', array('id' => 'templateid'));
-      $table->addColumn('name', 'string')
-            ->addColumn('template', 'string')
-            ->addColumn('created', 'datetime')
+      $table = $this->table('group_projects');
+      $table->addColumn('deptid', 'integer')
+            ->addColumn('projectid', 'integer')
             ->create();
     }
 }

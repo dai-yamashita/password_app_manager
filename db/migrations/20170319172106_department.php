@@ -28,9 +28,8 @@ class Department extends AbstractMigration
     public function change()
     {
       // create the table
-      $table = $this->table('department');
-      $table->addColumn('deptid', 'integer')
-            ->addColumn('userid', 'integer')
+      $table = $this->table('department', array('id' => 'deptid'));
+      $table->addColumn('userid', 'integer')
             ->addColumn('groupname', 'string')
             ->addColumn('department', 'string')
             ->addColumn('visibility', 'string')
