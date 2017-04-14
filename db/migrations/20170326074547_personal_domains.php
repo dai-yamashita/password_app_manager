@@ -28,10 +28,23 @@ class PersonalDomains extends AbstractMigration
     public function change()
     {
       $table = $this->table('personal_domains');
-      $table->addColumn('domain_id', 'integer')
+      $table->addColumn('project_id', 'integer')
+            ->addColumn('type', 'integer')
+            ->addColumn('templateid', 'integer')
+            ->addColumn('domain_id', 'integer')
             ->addColumn('changefreq', 'string')
-            ->addColumn('expirydate', 'datetime')
-            ->addColumn('last_modified', 'datetime')
+            ->addColumn('importance', 'string')
+            ->addColumn('url', 'string')
+            ->addColumn('loginurl', 'string')
+            ->addColumn('username', 'string')
+            ->addColumn('password', 'string')
+            ->addColumn('pwlength', 'string')
+            ->addColumn('mark', 'text')
+            ->addColumn('notes', 'text')
+            ->addColumn('customtemplate', 'text')
+            ->addColumn('expirydate', 'integer')
+            ->addColumn('last_modified', 'integer')
+            ->addColumn('created', 'integer')
             ->create();
     }
 }

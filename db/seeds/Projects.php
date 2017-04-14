@@ -14,14 +14,24 @@ class Projects extends AbstractSeed
      */
     public function run()
     {
-      $data = array(
-        'project' => 'Project Nova',
-        'desc' => 'sample project',
-        'visibility' => 'public',
-        'created' => time()
-      );
-      $table = $this->table('projects');
-      $table->insert($data)
-            ->save();
+        $data = array(
+          array(
+              'projectid' => 1,
+              'project' => 'Project Nova',
+              'desc' => 'sample project',
+              'visibility' => 'public',
+              'created' => time()
+          ),
+          array(
+              'projectid' => 2,
+              'project' => 'Project X',
+              'desc' => 'sample project',
+              'visibility' => 'public',
+              'created' => time()
+          )
+        );
+        $table = $this->table('projects');
+        $table->insert($data)
+              ->save();
     }
 }

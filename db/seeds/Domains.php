@@ -15,20 +15,36 @@ class Domains extends AbstractSeed
     public function run()
     {
       $data = array(
-        'domain_id' => 1,
-        'project_id' => 1,
-        'type' => 1,
-        'templateid' => -100,
-        'changefreq' => 'hourly',
-        'importance' => 'critical',
-        'expirydate' => time(),
-        'url' => 'mysite.com',
-        'loginurl' => 'mysite.com/login.php',
-        'username' => 'user1',
-        'password' => 'user1',
-        'pwlength' => '8',
-        'created' => time()
+        array(
+          'project_id' => 1,
+          'type' => 1,
+          'templateid' => -100,
+          'changefreq' => 'hourly',
+          'importance' => 'critical',
+          'expirydate' => time(),
+          'url' => 'mysite1.com',
+          'loginurl' => 'mysite1.com/login.php',
+          'username' => 'user1',
+          'password' => 'user1',
+          'pwlength' => '8',
+          'created' => time()
+        ),
+        array(
+          'project_id' => 2,
+          'type' => 1,
+          'templateid' => -100,
+          'changefreq' => 'hourly',
+          'importance' => 'critical',
+          'expirydate' => time(),
+          'url' => 'mysite2.com',
+          'loginurl' => 'mysite2.com/login.php',
+          'username' => 'user1',
+          'password' => 'user1',
+          'pwlength' => '8',
+          'created' => time()
+        )
       );
+    ;
       $table = $this->table('domains');
       $table->insert($data)
             ->save();
