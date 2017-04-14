@@ -14,10 +14,22 @@ class Permissions extends AbstractSeed
      */
     public function run()
     {
+      // Array of permissions. These data will be converted to json format using serialize()
+      /** Admin
+        * array('uri' => array('/mydomain/','/domain/','/department/','/accounttype/','/user/','/project/','/settings/','/logintemplate/'))
+        *
+        * Manager
+        * array('uri' => array('/mydomain/','/domain/','/department/','/user/','/project/'))
+        *
+        * Member
+        * array('uri' => array('/mydomain/','/domain/'))
+      **/
+
       $data = array(
         array(
           'role_id' => 1,
           'data' => 'a:1:{s:3:"uri";a:7:{i:0;s:8:"/domain/";i:1;s:10:"/mydomain/";i:2;s:12:"/department/";i:3;s:13:"/accounttype/";i:4;s:6:"/user/";i:5;s:9:"/project/";i:6;s:10:"/settings/";}}',
+
         ),
         array(
           'role_id' => 2,
