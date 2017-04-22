@@ -3,7 +3,8 @@
 cook by mandoy add me @facebook.com/artheman
 */
 class Mydomain extends Controller {
-    public $logged_userid, $browse ;
+    public $logged_userid, $browse;
+
     function __construct() {
         parent::Controller();
         if (! $this->dx_auth->is_logged_in()) redirect('login');
@@ -30,14 +31,13 @@ class Mydomain extends Controller {
         $this->csv_path = './uploads/csv/';
         $this->sessd = array('impfile'   => '' ,'delim'     => '' , 'enc' => '' , 'step' => '' );
         // set the maximum memory limit
-	ini_set('memory_limit', '150M');
+	     ini_set('memory_limit', '150M');
     }
 
     function index() {
         $this->browse();
     }
 
-// <editor-fold defaultstate="collapsed" desc=" form ">
     function form() {
         $this->load->view( 'validations/domain' );
         $this->form_validation->set_rules('url', 'Homepage url', 'trim');
@@ -83,9 +83,6 @@ class Mydomain extends Controller {
         $this->template->render();
     }
 
-// </editor-fold>
-
-// <editor-fold defaultstate="collapsed" desc=" browse ">
     function browse() {
         $s = 'Template not found. It might be the login template is wrong or does not match in the domain type.';
         $flash = $this->session->flashdata( 'flash' );
@@ -114,9 +111,7 @@ class Mydomain extends Controller {
         $this->template->write_view('content', 'default/mydomain_browse', $data);
         $this->template->render();
     }
-// </editor-fold>
 
-// <editor-fold defaultstate="collapsed" desc=" delete ">
     function delete($id) {
         $id = intval($id);
         if (!empty($id)) {
@@ -129,18 +124,16 @@ class Mydomain extends Controller {
                 // delete ang iyang custom fields
                 $this->db->delete($this->tpersonaldomain_customfields, array('domain_id' => $id, 'user_id' => $this->logged_userid));
             }
-            
+
         }
         $this->session->set_flashdata( 'flash', 'Successfully delete domain.' ) ;
         redirect('admin/mydomain/browse');
     }
-// </editor-fold>
 
-// <editor-fold defaultstate="collapsed" desc=" view ">
     function view() {
         $id = isset($_POST['domain_id']) ? intval($_POST['domain_id']) : $this->uri->segment(4);
         $data['customfields'] = $this->mdl_customfields->list_customfields($this->tpersonal_domains);
-		$data['backurl'] = site_url('admin/mydomain/browse');
+		    $data['backurl'] = site_url('admin/mydomain/browse');
         if ($id) {
             $rs = $this->mdl_domains->get_all_personaldomains( $this->logged_userid, array('resulttype' => 'row_array', 'domain_id' => $id ));
             if ($rs) {
@@ -153,9 +146,6 @@ class Mydomain extends Controller {
         $this->template->render();
     }
 
-// </editor-fold>
-
-// <editor-fold defaultstate="collapsed" desc="import" >
     function import($format='csv') {
         $this->load->library('importer');
         $this->load->dbutil();
@@ -198,8 +188,6 @@ class Mydomain extends Controller {
         $this->template->render();
     }
 
-// </editor-fold>
-
     function doimport() {
         $this->import_step();
     }
@@ -241,7 +229,7 @@ class Mydomain extends Controller {
                             'delim'     => $_POST['delimiter'], 'enc' => $_POST['enclosure'], 'step' => 'step1' );
                         $this->session->set_userdata($sessd);
                         redirect('admin/mydomain/import_step/csv/step/2');
-                    } 
+                    }
                     else {
                         $data['flash']['error'] = $uploadeddata['upload_error'] ;
                         $this->template->write_view('content', 'default/import/step1', $data );
@@ -252,7 +240,7 @@ class Mydomain extends Controller {
                 }
             }
 
-            // step2 
+            // step2
             if ($step == 2) {
                 $step = $this->session->userdata('step');
                 if ($step !== 'step1') redirect('admin/mydomain/import_step/csv/step/1');
@@ -406,17 +394,14 @@ class Mydomain extends Controller {
         if ($type == 'xml') {
 
         }
-        
+
         $this->template->render();
     }
 
-    
-    function import_csv() {
 
+    function import_csv() {
     }
 
-
-// <editor-fold defaultstate="collapsed" desc=" export ">
     function export($format='csv') {
         $data = array();
         $format = isset($_POST['exportfmt']) ? $_POST['exportfmt'] : (!empty($format) ? $format : 'csv');
@@ -432,7 +417,7 @@ class Mydomain extends Controller {
                 personal_domains.customtemplate, personal_domains.importance, personal_domains.url,
                 personal_domains.loginurl, personal_domains.username, personal_domains.password,
                 personal_domains.changefreq, personal_domains.mark, personal_domains.notes
-                FROM personal_domains 
+                FROM personal_domains
                 INNER JOIN user_personal_domains ON user_personal_domains.domain_id = personal_domains.domain_id
                 WHERE user_personal_domains.user_id = $this->logged_userid ";*/
             $sql = "SELECT * FROM personal_domains
@@ -453,9 +438,6 @@ class Mydomain extends Controller {
         $this->template->render();
     }
 
-// </editor-fold>
-
-// <editor-fold defaultstate="collapsed" desc="is_domain_exist ">
     function is_domain_exist($id) {
         $rs = $this->mdl_domains->get_domain_by_id($id);
         if (FALSE == $rs) {
@@ -464,9 +446,7 @@ class Mydomain extends Controller {
         return $rs;
     }
 
-// </editor-fold>
 
-// <editor-fold defaultstate="collapsed" desc=" isvalid_url_check ">
     function isvalid_url_check($url) {
         if (!empty($url)) {
             if (filter_var($url, FILTER_VALIDATE_URL) == FALSE) {
@@ -476,9 +456,7 @@ class Mydomain extends Controller {
             return TRUE;
         }
     }
-// </editor-fold>
 
-// <editor-fold defaultstate="collapsed" desc=" search ">
     function search() {
         $this->session->unset_userdata($this->sessdata);
         $data['results'] = array();
@@ -505,14 +483,12 @@ class Mydomain extends Controller {
         $this->mdl_projects->order_by = 'project ASC';
         $data['allprojects'] = $this->mdl_projects->get_all_projects();
         $this->mdl_projects->where = '';
-        $this->mdl_projects->order_by = '';        
+        $this->mdl_projects->order_by = '';
         $data['allaccounttypes'] = $this->mdl_account_type->get_all_accounttypes( array('rows' => NULL));
         $this->template->write_view('content', 'default/mydomain_search', $data);
         $this->template->render();
     }
-// </editor-fold>
 
-// <editor-fold defaultstate="collapsed" desc=" searchresult ">
     function searchresult() {
         $this->load->library( 'pagination' );
         $data['results'] = array();
@@ -558,9 +534,6 @@ class Mydomain extends Controller {
         $this->template->render();
     }
 
-// </editor-fold>
-
-// <editor-fold defaultstate="collapsed" desc=" customfield ">
     function customfield() {
         $data['flash']['success'] = $this->session->flashdata( 'flash' );
         $data['results'] = $this->mdl_customfields->list_customfields($this->tpersonal_domains);
@@ -579,9 +552,7 @@ class Mydomain extends Controller {
         }
         $this->template->render();
     }
-// </editor-fold>
 
-// <editor-fold defaultstate="collapsed" desc=" deletefield ">
     function deletefield() {
         $uri = $this->uri->uri_to_assoc(1);
         $f = $uri['deletefield'] ;
@@ -589,9 +560,7 @@ class Mydomain extends Controller {
         $this->session->set_flashdata( 'flash', 'Successfully deleted a field.' ) ;
         header('location:' . $_SERVER['HTTP_REFERER'] );
     }
-// </editor-fold>
-//
-// <editor-fold defaultstate="collapsed" desc=" dologin2 ">
+
     function dologin2($id) {
         $rs = $this->mdl_domains->get_personaldomain_by_id($id, array('resulttype' => 'row_array'));
         #print_r($rs);
@@ -599,7 +568,7 @@ class Mydomain extends Controller {
             $type = strtolower($rs['acctype']);
             $templateid = $rs['templateid'];
             #echo "e=$templateid" ;
-            
+
             switch($type) {
                 case 'ftp':
                     $this->load->library('cpanel');
@@ -643,10 +612,10 @@ class Mydomain extends Controller {
                     break;
 
                 case 'cpanel' :
-//                    $this->load->library('cpanel');
-//                    $params = array('user' => $rs['username'], 'pass' => $rs['password'], 'host' => $rs['url'] );
-//                    $this->cpanel->init('index.html', $params, array(), FALSE );
-//                    $this->cpanel->execute_page('index.html', $params);
+          // $this->load->library('cpanel');
+          // $params = array('user' => $rs['username'], 'pass' => $rs['password'], 'host' => $rs['url'] );
+          // $this->cpanel->init('index.html', $params, array(), FALSE );
+          // $this->cpanel->execute_page('index.html', $params);
                     $tpl = $this->mdl_logintemplates->get_template_by_id($templateid);
                     $data = array( '{username}' => $rs['username'], '{password}' => $rs['password'], '{loginurl}' => $rs['loginurl'] );
                     $v['template'] = str_replace( array_keys($data) , array_values($data), $tpl['template']);
@@ -689,9 +658,7 @@ class Mydomain extends Controller {
             }
         }
     }
-// </editor-fold>
 
-// <editor-fold defaultstate="collapsed" desc=" dologin ">
     function dologin($id) {
         $rs = $this->mdl_domains->get_personaldomain_by_id($id, array('resulttype' => 'row_array'));
         #print_r($rs);
@@ -751,9 +718,7 @@ class Mydomain extends Controller {
             }
         }
     }
-// </editor-fold>
 
-// <editor-fold defaultstate="collapsed" desc=" delete_customfield ">
     function delete_customfield($id) {
         if (!empty($id)){
             $this->db->where( array('customfieldid' => $id, 'user_id' => $this->logged_userid) );
@@ -762,9 +727,7 @@ class Mydomain extends Controller {
             header('location:' . $_SERVER['HTTP_REFERER'] );
         }
     }
-// </editor-fold>
 
-// <editor-fold defaultstate="collapsed" desc=" fieldname_check ">
     function fieldname_check() {
         $fieldname = $this->input->post('fieldname');
         if ($this->db->field_exists( $this->fieldprefix . $fieldname, $this->tpersonal_domains)) {
@@ -773,9 +736,7 @@ class Mydomain extends Controller {
         }
         return TRUE;
     }
-// </editor-fold>
 
-// <editor-fold defaultstate="collapsed" desc=" do_upload ">
     function do_upload( $params ) {
         $default = array(
                 'upload_path'		=> $this->csv_path ,
@@ -799,11 +760,8 @@ class Mydomain extends Controller {
                 return $data ;
             }
         }
-
     }
-// </editor-fold>
 
-// <editor-fold defaultstate="collapsed" desc=" _check_valid_extension ">
     function _check_valid_extension( $f ) {
         $validext = explode( '|', $this->allowed_type );
         $ext = end(explode( '.', $f ));
@@ -812,11 +770,4 @@ class Mydomain extends Controller {
         }
         return TRUE;
     }
-
-// </editor-fold>
-
-
-
-
 }
-
