@@ -29,6 +29,7 @@ class PersonaldomainCustomfields extends AbstractMigration
     {
       $table = $this->table('personaldomain_customfields');
       $table->addColumn('domain_id', 'integer')
+            ->addColumn('user_id', 'integer')
             ->create();
     }
 }
