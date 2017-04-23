@@ -5,7 +5,6 @@ cook by mandoy add me @facebook.com/artheman
 class Domain extends Controller {
     public $logged_userid, $browse ;
 
-// <editor-fold defaultstate="collapsed" desc=" __construct ">
     function __construct() {
         parent::Controller();
         if (! $this->dx_auth->is_logged_in()) redirect('login');

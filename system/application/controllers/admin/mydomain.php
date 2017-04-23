@@ -44,7 +44,7 @@ class Mydomain extends Controller {
         $this->form_validation->set_rules('loginurl', 'Login url', 'trim');
         $this->form_validation->set_error_delimiters('<p style="padding:2px" >', '</p>');
         $id = $this->uri->segment(4);
-        $id = isset($_POST['domain_id']) ? intval($_POST['domain_id']) : (!empty($id) ? $id : NULL );
+        $id = isset($_POST['domain_id']) ? intval($_POST['domain_id']) : (!empty($id) ? $id : null );
         $data = array();
         if ($id) {
             if ( isset($_POST['submit_domain_customfield'])) $this->form_validation->set_rules('domain_customfield', 'custom fieldname', 'required');
@@ -60,14 +60,13 @@ class Mydomain extends Controller {
         $data['alllogintemplates'] = $this->mdl_logintemplates->get_all_logintemplates();
         $data['customfields'] = $this->mdl_customfields->list_customfields($this->tpersonal_domains);
         $data['domain_customfields'] = $this->mdl_domain_customfields->get_all_personaldomain_customfields($id);
-        #print_r($_POST);
         if ( $this->form_validation->run() ) {
             if ($this->input->post('submit_domain_customfield') ) {
                 $this->mdl_domain_customfields->save(array('tablename' => $this->tpersonaldomain_customfields ));
                 $this->session->set_flashdata( 'flash', 'Successfully saved domain.' ) ;
                 header('location:' . $_SERVER['HTTP_REFERER'] );
             } else {
-                $this->mdl_domains->domain_id = $id;
+                if ($id) $this->mdl_domains->domain_id = $id;
                 $this->mdl_domains->save(array('tablename' => $this->tpersonal_domains));
                 $tmpid = $this->mdl_domains->get_domainid();
                 $this->mdl_domains->save_personaldomain( array('user_id' => $this->logged_userid, 'domain_id' => $tmpid ) );

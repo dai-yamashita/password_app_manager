@@ -27,11 +27,10 @@ class PersonalDomains extends AbstractMigration
      */
     public function change()
     {
-      $table = $this->table('personal_domains');
+      $table = $this->table('personal_domains', array('id' => 'domain_id'));
       $table->addColumn('project_id', 'integer')
             ->addColumn('type', 'integer')
             ->addColumn('templateid', 'integer')
-            ->addColumn('domain_id', 'integer')
             ->addColumn('changefreq', 'string')
             ->addColumn('importance', 'string')
             ->addColumn('url', 'string')
