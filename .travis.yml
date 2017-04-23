@@ -8,3 +8,5 @@ deploy:
   domain: ''
   on:
     repo: sudogem/password_app_manager
+notifications:
+  slack: pragmaticprogrammers:vPa5atxnsbHS6dTEuAAsnSxy
