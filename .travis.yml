@@ -1,0 +1,10 @@
+language: php
+deploy:
+  provider: openshift
+  user: brainwired@gmail.com
+  password:
+    secure: 27DPluKfQI8dyXN+XWi0+yoP1FUqLD085qtNs/YDSimKPua5sJI3X92LsOoW+4MHtPokT+Nio/cTtwSAA+PihQGEob75hnLIDq0KRE99WQhaH6yAkK9Pifh5Ao+B4IgHDEMVBUUdDTFCJr4qU6S34MSUepbNVBwY+jyYKbcEEMJ1FdtRtv93+0zPEpf892PlK/uLoOelovSeKnQC3yIQW/I9HYnbiw7Fi7vXNsKtXb1YsBO9E1wVRJKFew0FousSrNlRBojTp9Bf/mzUXMZ94YqKWbXlVxiiqURXGmY9ymdniaCJSJa9O+ekh3a7PLKqlnpewu2wGvFZ/zdRdSV9XH7kFni5uhBY2/xBRpqK2tNgM9cJKgkzkCL7QET+dkoUQB/XzirIDm4HTYn+HxNAyn3PcxTHF2EES0PT8DnPkucI8c4UKx4QlSWvp9AeeCz+2x1QIJXAaH43ESx90ZIKWt72f8VQBzEMipgkz/qSRykGfKtVJa3U3wspMUJVPDGfairU7774fkfgbRoVLbEKM5HEMyuyR94Ts/NGglFS6NGWqgKqmT3XaAlwV4dHsSSzZbekVseTIrMFU3YRiaiouv4gPy0VbSrytcIbFIiElvlqMMmpl6IZ5Vzw1FiiV0Tmu2V2uPFcIWIDpxpvYGyzxvcKRey7d4tDM3dDjWufmss=
+  app: password_app_manager
+  domain: ''
+  on:
+    repo: sudogem/password_app_manager

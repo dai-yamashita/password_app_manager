@@ -18,7 +18,7 @@ class Alerts
             'hourly'        => '+ 1 hour',
             );
         $this->tdomains = 'domains';
-		$this->tpersonal_domains = 'personal_domains';
+        $this->tpersonal_domains = 'personal_domains';
         $this->talerts = 'alerts';
         $this->logged_userid = $this->ci->dx_auth->get_user_id();
         $this->ci->load->helper('url');
@@ -26,16 +26,16 @@ class Alerts
 
     function check_overdue_account($params=array()) {
         $default = array(
-                'rows'		=> '10',
-                'offset'	=> '',
+                'rows'    => '10',
+                'offset'  => '',
                 'resulttype'    => 'result_array',
                 ''
         );
         $params = array_merge( $default, $params );
         $data = array();
-$timezone = $this->ci->sitesettings->get_settings('timezone');
-$isdaylightsaving = $this->ci->sitesettings->get_settings('isdaylightsaving');
-$localtime = gmt_to_local( time(), $timezone, $isdaylightsaving );
+        $timezone = $this->ci->sitesettings->get_settings('timezone');
+        $isdaylightsaving = $this->ci->sitesettings->get_settings('isdaylightsaving');
+        $localtime = gmt_to_local( time(), $timezone, $isdaylightsaving );
 
         $currenttime = $localtime;
         foreach($this->frequency as $k => $v) {
@@ -68,21 +68,21 @@ $localtime = gmt_to_local( time(), $timezone, $isdaylightsaving );
                 }
             }
         }
-		
-		$this->check_overdue_account_personal($params);
+
+    $this->check_overdue_account_personal($params);
     }
-	
+
     function check_overdue_account_personal($params=array()) {
         $default = array(
-                'rows'		=> '10',
-                'offset'	=> '',
+                'rows'    => '10',
+                'offset'  => '',
                 'resulttype'    => 'result_array',
         );
         $params = array_merge( $default, $params );
         $data = array();
-		$timezone = $this->ci->sitesettings->get_settings('timezone');
-		$isdaylightsaving = $this->ci->sitesettings->get_settings('isdaylightsaving');
-		$localtime = gmt_to_local( time(), $timezone, $isdaylightsaving );
+    $timezone = $this->ci->sitesettings->get_settings('timezone');
+    $isdaylightsaving = $this->ci->sitesettings->get_settings('isdaylightsaving');
+    $localtime = gmt_to_local( time(), $timezone, $isdaylightsaving );
         $currenttime = $localtime;
         foreach($this->frequency as $k => $v) {
             if ($k) {
@@ -115,36 +115,36 @@ $localtime = gmt_to_local( time(), $timezone, $isdaylightsaving );
             }
         }
     }
-	
+
     function create_alert($params = array()) {
         $default = array(
-            'rows'				=> '10',
+            'rows'        => '10',
             'offset'            => '',
             'resulttype'        => 'result_array',
             'expirydate'        => '',
             'domain_id'         => '',
-			'domaintype'        => '',
+      'domaintype'        => '',
         );
-        
+
         $params = array_merge( $default, $params );
         $this->ci->db->where( array('isread' => 0, 'domainid' => $params['domain_id']));
         $rs = $this->ci->db->get($this->talerts);
         if ($rs->num_rows() > 0) {
            // wlaa
         } else {
-			$url = 'admin/domain';
-			if ($params['domaintype'] == 'personal') {
-				$url = 'admin/mydomain';
-	            $msg = $this->ci->sitesettings->get_settings('account_expired_message');
-	            $timezone = $this->ci->sitesettings->get_settings('timezone');
-	            $isdaylightsaving = $this->ci->sitesettings->get_settings('isdaylightsaving');
-	            $rs = $this->ci->mdl_domains->get_personaldomain_by_id($params['domain_id'], array('resulttype' => 'row_array')) ;            			
-			} else {				
-	            $msg = $this->ci->sitesettings->get_settings('account_expired_message');
-	            $timezone = $this->ci->sitesettings->get_settings('timezone');
-	            $isdaylightsaving = $this->ci->sitesettings->get_settings('isdaylightsaving');
-	            $rs = $this->ci->mdl_domains->get_domain_by_id($params['domain_id'], array('resulttype' => 'row_array')) ;            			
-			}
+      $url = 'admin/domain';
+      if ($params['domaintype'] == 'personal') {
+        $url = 'admin/mydomain';
+              $msg = $this->ci->sitesettings->get_settings('account_expired_message');
+              $timezone = $this->ci->sitesettings->get_settings('timezone');
+              $isdaylightsaving = $this->ci->sitesettings->get_settings('isdaylightsaving');
+              $rs = $this->ci->mdl_domains->get_personaldomain_by_id($params['domain_id'], array('resulttype' => 'row_array')) ;
+      } else {
+              $msg = $this->ci->sitesettings->get_settings('account_expired_message');
+              $timezone = $this->ci->sitesettings->get_settings('timezone');
+              $isdaylightsaving = $this->ci->sitesettings->get_settings('isdaylightsaving');
+              $rs = $this->ci->mdl_domains->get_domain_by_id($params['domain_id'], array('resulttype' => 'row_array')) ;
+      }
             $msg2 = "";
             $msg2 = "<br /> Domain: " . $rs['project'] . "<br />";
             $msg2 .= "Type: " . $rs['acctype'] . "<br />";
@@ -179,31 +179,31 @@ $localtime = gmt_to_local( time(), $timezone, $isdaylightsaving );
             }
         }
     }
-	
+
     function alert_add_to_project( ) {
-		$ids = $this->ci->input->post( 'chk' );
-		$uid = $this->ci->input->post( 'gid' );
-		$rs2 = $this->ci->mdl_projects->get_projectlist_by_id($ids);
-		$projectnames = '<none>';
-		if ($rs2) {
-			$projectnames = '<ul>';
-			foreach ($rs2 as $v) {
-				$projectnames .= '<li>' . $v['project'] . '</li>';
-			}
-			$projectnames .= '</ul>';
-			$m = "You're project access has been updated. Below are the list of projects: <br>$projectnames <br>Thanks,<br>Trimorph Team";
-			$timezone = $this->ci->sitesettings->get_settings('timezone');
-			$isdaylightsaving = $this->ci->sitesettings->get_settings('isdaylightsaving');
-			$localtime = gmt_to_local( time(), $timezone, $isdaylightsaving );		
-			$d = array('title' => 'Your Project access is updated.', 'alert' => $m, 'to' => $uid, 'created' => $localtime, 'isread' => 0);
-			$this->ci->db->insert('alerts', $d);   		
-		}
-     
+    $ids = $this->ci->input->post( 'chk' );
+    $uid = $this->ci->input->post( 'gid' );
+    $rs2 = $this->ci->mdl_projects->get_projectlist_by_id($ids);
+    $projectnames = '<none>';
+    if ($rs2) {
+      $projectnames = '<ul>';
+      foreach ($rs2 as $v) {
+        $projectnames .= '<li>' . $v['project'] . '</li>';
+      }
+      $projectnames .= '</ul>';
+      $m = "You're project access has been updated. Below are the list of projects: <br>$projectnames <br>Thanks,<br>Trimorph Team";
+      $timezone = $this->ci->sitesettings->get_settings('timezone');
+      $isdaylightsaving = $this->ci->sitesettings->get_settings('isdaylightsaving');
+      $localtime = gmt_to_local( time(), $timezone, $isdaylightsaving );
+      $d = array('title' => 'Your Project access is updated.', 'alert' => $m, 'to' => $uid, 'created' => $localtime, 'isread' => 0);
+      $this->ci->db->insert('alerts', $d);
+    }
+
     }
 
     function recalculate_days($params = array()) {
         $default = array(
-            'domain_id'		=> '',
+            'domain_id'    => '',
             'addtime'           => '',
             'tablename'         => $this->tdomains,
         );
@@ -219,28 +219,28 @@ $localtime = gmt_to_local( time(), $timezone, $isdaylightsaving );
 $timezone = $this->ci->sitesettings->get_settings('timezone');
 $isdaylightsaving = $this->ci->sitesettings->get_settings('isdaylightsaving');
 $currenttime = gmt_to_local(time(), $timezone, $isdaylightsaving );
-        
+
         $time = date('Y-m-d g:i:s a', $currenttime);
         $expirydate = strtotime($time . " $addtime");
 
         $data = array('expirydate' => $expirydate);
         $this->ci->db->where('domain_id', $domain_id);
         $this->ci->db->update($params['tablename'], $data);
-        
+
     }
 
     function send_email_notification($params = array()) {
         $msg = $this->ci->sitesettings->get_settings('account_expired_message');
         $admin_email = $this->ci->sitesettings->get_settings('admin_email');
         $noreply_email = $this->ci->sitesettings->get_settings('noreply_email');
-		$url = 'admin/domain/';
-		if (isset($params['domaintype']) && $params['domaintype'] == 'personal' ) {
-			$url = 'admin/mydomain/';
-			$rs = $this->ci->mdl_domains->get_personaldomain_by_id($params['domain_id'], array('resulttype' => 'row_array')) ;		
-		} else {
-			$rs = $this->ci->mdl_domains->get_domain_by_id($params['domain_id'], array('resulttype' => 'row_array')) ;		
-		}
-		#print_r($rs);
+    $url = 'admin/domain/';
+    if (isset($params['domaintype']) && $params['domaintype'] == 'personal' ) {
+      $url = 'admin/mydomain/';
+      $rs = $this->ci->mdl_domains->get_personaldomain_by_id($params['domain_id'], array('resulttype' => 'row_array')) ;
+    } else {
+      $rs = $this->ci->mdl_domains->get_domain_by_id($params['domain_id'], array('resulttype' => 'row_array')) ;
+    }
+    #print_r($rs);
         $this->ci->db->where( array('isread' => 0, 'domainid' => $params['domain_id']));
         $rs2 = $this->ci->db->get($this->talerts);
         if ($rs2->num_rows() > 0) {
@@ -258,7 +258,7 @@ $currenttime = gmt_to_local(time(), $timezone, $isdaylightsaving );
                 '{domaindetails}'   => $msg2,
             );
 
-            
+
 
             $msg = str_replace( array_keys($data), array_values($data), $msg );
             /*$config['protocol'] = 'sendmail';
@@ -273,7 +273,7 @@ $currenttime = gmt_to_local(time(), $timezone, $isdaylightsaving );
             $this->ci->email->subject('Password expired');
             $this->ci->email->message($msg);
             $this->ci->email->send();
-            #echo $this->ci->email->print_debugger();            
+            #echo $this->ci->email->print_debugger();
         }
 
     }
@@ -300,15 +300,15 @@ $currenttime = gmt_to_local(time(), $timezone, $isdaylightsaving );
         #$this->ci->db->where( array('isread' => 0, 'to' => $this->logged_userid , 'isread1 !=' => 1 ) );
         #$this->ci->db->or_where( array('to' => -1));
         #$this->ci->db->get($this->talerts)->result_array();
-		if ($this->ci->dx_auth->is_role(array('member')) ) {
-			$sql = "SELECT * FROM $this->talerts where 1=1 AND";
-			$sql .= "(`to` = $this->logged_userid) AND `isread` = 0";
-			$sql .= " ORDER BY alerts.created DESC";	
-		} else {
-			$sql = "SELECT * FROM $this->talerts where 1=1 AND";
-			$sql .= "( `to` = -1 OR `to` = $this->logged_userid) AND `isread` = 0";		
-			$sql .= " ORDER BY alerts.created DESC";	
-		}
+    if ($this->ci->dx_auth->is_role(array('member')) ) {
+      $sql = "SELECT * FROM $this->talerts where 1=1 AND";
+      $sql .= "(`to` = $this->logged_userid) AND `isread` = 0";
+      $sql .= " ORDER BY alerts.created DESC";
+    } else {
+      $sql = "SELECT * FROM $this->talerts where 1=1 AND";
+      $sql .= "( `to` = -1 OR `to` = $this->logged_userid) AND `isread` = 0";
+      $sql .= " ORDER BY alerts.created DESC";
+    }
         $rs = $this->ci->db->query($sql);
         if ($rs->num_rows() > 0){
             return $rs->result_array();
@@ -316,20 +316,20 @@ $currenttime = gmt_to_local(time(), $timezone, $isdaylightsaving );
         return FALSE;
     }
 
-	function check_user_alerts($uid) {
-		if ($this->ci->dx_auth->is_role(array('owner','administrator'))) {
-			$this->ci->db->where('to', $uid );
-			$this->ci->db->or_where('to', -1);
-			$this->ci->db->order_by('created', 'asc');
-	        $rs = $this->ci->db->get('alerts')->result_array();		
-		} else {
-			$this->ci->db->where('to', $uid );
-			$this->ci->db->order_by('created', 'desc');
-	        $rs = $this->ci->db->get('alerts')->result_array();		
-		}
-		return $rs;
-	}
-	
+  function check_user_alerts($uid) {
+    if ($this->ci->dx_auth->is_role(array('owner','administrator'))) {
+      $this->ci->db->where('to', $uid );
+      $this->ci->db->or_where('to', -1);
+      $this->ci->db->order_by('created', 'asc');
+          $rs = $this->ci->db->get('alerts')->result_array();
+    } else {
+      $this->ci->db->where('to', $uid );
+      $this->ci->db->order_by('created', 'desc');
+          $rs = $this->ci->db->get('alerts')->result_array();
+    }
+    return $rs;
+  }
+
     function _check_domain() {
 
     }
