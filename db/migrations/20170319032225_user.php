@@ -47,7 +47,7 @@ class User extends AbstractMigration
             ->addColumn('newpass_time', 'datetime', array('null' => true))
             ->addColumn('last_ip', 'string', array('limit' => 40, 'null' => true))
             ->addColumn('last_login', 'datetime', array('null' => true))
-            ->addColumn('created', 'datetime', array('null' => false, 'default' => '0000-00-00 00:00:00'))
+            ->addColumn('created', 'datetime', array('null' => false))
             ->addColumn('modified', 'timestamp', array('null' => false, 'default' => 'CURRENT_TIMESTAMP'))
             ->create();
     }
