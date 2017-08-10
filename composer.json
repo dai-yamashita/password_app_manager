@@ -2,7 +2,7 @@
   "require": {
     "php": "5.5.38",
     "ext-mysql": "*",
-    "ext-mysqli": "*"
+    "ext-mysqli": "*",
     "robmorgan/phinx": "^0.8.0",
     "fzaninotto/faker": "^1.6"
   }
