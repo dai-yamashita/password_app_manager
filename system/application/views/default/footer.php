@@ -16,4 +16,3 @@ $localtime = date('F d Y g:i:s a', $localtime);
         <div id="menu" >
         Local time: <?php echo $localtime  ?>
         </div>
-		Copyright &copy; 2009 - Trimorp</div>

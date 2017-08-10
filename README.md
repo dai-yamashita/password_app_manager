@@ -26,11 +26,13 @@ If you want to create another database table, in root folder of the app, run the
 (In Windows) $ vendor/bin/phinx seed:run -v      
 (In Linux) $ php vendor/bin/phinx seed:run -v      
 
-
 #### Technology stacks
 * Codeigniter - php framework (http://codeigniter.com)
 * phinx - php db migration (http://phinx.org)
 * MySql - db (http://mysql.com)
+
+#### Screenshots
+![Homepage](/screenshots/homepage.png)   
 
 #### Developer
 password_app_manager &copy;2016 Arman Ortega. Released under the MIT License.    

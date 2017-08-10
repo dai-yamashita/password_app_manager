@@ -16,11 +16,11 @@ environments:
 
     development:
         adapter: mysql
-        host: localhost
-        name: passwordmanager_dev
-        user: root
-        pass: webdevel
-        port: 3306
+        host: %%PHINX_DB_HOST%%
+        name: %%PHINX_DB_DBNAME%%
+        user: %%PHINX_DB_USER%%
+        pass: %%PHINX_DB_PASS%%
+        port: %%PHINX_DB_PORT%%
         charset: utf8
 
     testing:
