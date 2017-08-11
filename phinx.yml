@@ -15,7 +15,7 @@ environments:
         charset: utf8
 
     development:
-        adapter: mysql
+        adapter: pgsql
         host: %%PHINX_DB_HOST%%
         name: %%PHINX_DB_DBNAME%%
         user: %%PHINX_DB_USER%%

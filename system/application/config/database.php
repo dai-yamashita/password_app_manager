@@ -34,24 +34,35 @@
 | the active record class
 */
 
-$active_group = "default";
+$active_group = "postgres_dev";
 $active_record = TRUE;
 
-$db['default']['hostname'] = isset($_ENV["PHINX_DB_HOST"]) ? $_ENV["PHINX_DB_HOST"]: "localhost";
-$db['default']['username'] = isset($_ENV["PHINX_DB_USER"]) ? $_ENV["PHINX_DB_USER"]: "root";
-$db['default']['password'] = isset($_ENV["PHINX_DB_PASS"]) ? $_ENV["PHINX_DB_PASS"]: "webdevel";
-$db['default']['database'] = isset($_ENV["PHINX_DB_DBNAME"]) ? $_ENV["PHINX_DB_DBNAME"]: "passwordmanager_dev";
-$db['default']['port'] = isset($_ENV["PHINX_DB_PORT"]) ? $_ENV["PHINX_DB_PORT"]: "3306";
-$db['default']['dbdriver'] = "mysql";
-$db['default']['dbprefix'] = "";
-$db['default']['pconnect'] = TRUE;
-$db['default']['db_debug'] = TRUE;
-$db['default']['cache_on'] = FALSE;
-$db['default']['cachedir'] = "";
-$db['default']['char_set'] = "utf8";
-$db['default']['dbcollat'] = "utf8_general_ci";
+## Note: Make sure that we configure our Environment variables(System variables in Windows)
+## Else it will choose the default variables.
+## For Postgres DB
+$db['postgres_dev']['hostname'] = isset($_ENV["PHINX_DB_HOST"]) ? $_ENV["PHINX_DB_HOST"]: "localhost";
+$db['postgres_dev']['username'] = isset($_ENV["PHINX_DB_USER"]) ? $_ENV["PHINX_DB_USER"]: "root";
+$db['postgres_dev']['password'] = isset($_ENV["PHINX_DB_PASS"]) ? $_ENV["PHINX_DB_PASS"]: "webdevel";
+$db['postgres_dev']['database'] = isset($_ENV["PHINX_DB_DBNAME"]) ? $_ENV["PHINX_DB_DBNAME"]: "passwordmanager_dev";
+$db['postgres_dev']['port'] = isset($_ENV["PHINX_DB_PORT"]) ? $_ENV["PHINX_DB_PORT"]: "3306";
+$db['postgres_dev']['dbdriver'] = "postgre";
 
+## For MySQL DB
+$db['mysql_dev']['hostname'] = isset($_ENV["PHINX_MYDB_HOST"]) ? $_ENV["PHINX_MYDB_HOST"]: "localhost";
+$db['mysql_dev']['username'] = isset($_ENV["PHINX_MYDB_USER"]) ? $_ENV["PHINX_MYDB_USER"]: "root";
+$db['mysql_dev']['password'] = isset($_ENV["PHINX_MYDB_PASS"]) ? $_ENV["PHINX_MYDB_PASS"]: "webdevel";
+$db['mysql_dev']['database'] = isset($_ENV["PHINX_MYDB_DBNAME"]) ? $_ENV["PHINX_MYDB_DBNAME"]: "passwordmanager_dev";
+$db['mysql_dev']['port'] = isset($_ENV["PHINX_MYDB_PORT"]) ? $_ENV["PHINX_MYDB_PORT"]: "3306";
+$db['mysql_dev']['dbdriver'] = "mysql";
+$db['mysql_dev']['dbprefix'] = "";
+$db['mysql_dev']['pconnect'] = TRUE;
+$db['mysql_dev']['db_debug'] = TRUE;
+$db['mysql_dev']['cache_on'] = FALSE;
+$db['mysql_dev']['cachedir'] = "";
+$db['mysql_dev']['char_set'] = "utf8";
+$db['mysql_dev']['dbcollat'] = "utf8_general_ci";
 
+## Deploy to Heroku Postgres add-ons
 $db['production']['hostname'] = "localhost";
 $db['production']['username'] = "eyelogn_pwmng";
 $db['production']['password'] = "pw196*25";

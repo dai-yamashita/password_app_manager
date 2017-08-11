@@ -393,7 +393,9 @@ class mdl_domains extends Model {
             $this->_prep_query();
             $this->db->join('account_type', 'account_type.type_id = domains.type');
             $this->db->join('projects', 'projects.projectid = domains.project_id');
-            return $this->db->get( $this->tdomains )->{$params['resulttype']}();
+            $result = $this->db->get( $this->tdomains )->{$params['resulttype']}();
+            print_r($this->db->last_query());
+            return $result;
         }
         return FALSE;
     }
