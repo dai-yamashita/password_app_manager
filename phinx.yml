@@ -8,9 +8,9 @@ environments:
     production:
         adapter: pgsql
         host: ec2-184-72-246-219.compute-1.amazonaws.com
-        name: %%HEROKU_POSTGRES_DB_DBNAME%%
-        user: %%HEROKU_POSTGRES_DB_USERNAME%%
-        pass: %%HEROKU_POSTGRES_DB_PASSWORD%%
+        name: d76gqisdrhnmd6
+        user: bruwpxapdutjoi
+        pass: 655ba0864a9e862bca2a1be40297373d3a72c7895a6d7cf2eaad4907804fef2c
         port: 5432
         charset: utf8
 
