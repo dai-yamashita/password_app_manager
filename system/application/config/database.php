@@ -75,7 +75,7 @@ $db['production']['username'] = isset($_ENV["HEROKU_POSTGRES_DB_USERNAME"]) ? $_
 $db['production']['password'] = isset($_ENV["HEROKU_POSTGRES_DB_PASSWORD"]) ? $_ENV["HEROKU_POSTGRES_DB_PASSWORD"]: "webdevel";
 $db['production']['database'] = isset($_ENV["HEROKU_POSTGRES_DB_DBNAME"]) ? $_ENV["HEROKU_POSTGRES_DB_DBNAME"]: "passwordmanager_prod";
 $db['production']['port'] = isset($_ENV["HEROKU_POSTGRES_DB_PORT"]) ? $_ENV["HEROKU_POSTGRES_DB_PORT"]: "3306";
-
+$db['production']['dbdriver'] = "postgre";
 // $db['production']['pconnect'] = TRUE;
 // $db['production']['db_debug'] = TRUE;
 // $db['production']['cache_on'] = FALSE;
