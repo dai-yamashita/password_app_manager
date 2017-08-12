@@ -34,7 +34,7 @@
 | the active record class
 */
 
-$active_group = "postgres_dev";
+$active_group = "production";
 $active_record = TRUE;
 
 ## Note: Make sure that we configure our Environment variables(System variables in Windows)
@@ -46,6 +46,12 @@ $db['postgres_dev']['password'] = isset($_ENV["PHINX_DB_PASS"]) ? $_ENV["PHINX_D
 $db['postgres_dev']['database'] = isset($_ENV["PHINX_DB_DBNAME"]) ? $_ENV["PHINX_DB_DBNAME"]: "passwordmanager_dev";
 $db['postgres_dev']['port'] = isset($_ENV["PHINX_DB_PORT"]) ? $_ENV["PHINX_DB_PORT"]: "3306";
 $db['postgres_dev']['dbdriver'] = "postgre";
+$db['postgres_dev']['dbprefix'] = "";
+$db['postgres_dev']['pconnect'] = TRUE;
+$db['postgres_dev']['db_debug'] = TRUE;
+$db['postgres_dev']['cache_on'] = FALSE;
+$db['postgres_dev']['cachedir'] = "";
+$db['postgres_dev']['char_set'] = "utf8";
 
 ## For MySQL DB
 $db['mysql_dev']['hostname'] = isset($_ENV["PHINX_MYDB_HOST"]) ? $_ENV["PHINX_MYDB_HOST"]: "localhost";
@@ -63,12 +69,12 @@ $db['mysql_dev']['char_set'] = "utf8";
 $db['mysql_dev']['dbcollat'] = "utf8_general_ci";
 
 ## Deploy to Heroku Postgres add-ons
-$db['production']['hostname'] = "localhost";
-$db['production']['username'] = "eyelogn_pwmng";
-$db['production']['password'] = "pw196*25";
-$db['production']['database'] = "eyelogn_pwmanager";
-$db['production']['port'] = "3306";
-$db['production']['dbdriver'] = "mysql";
+$db['production']['hostname'] = isset($_ENV["HEROKU_POSTGRES_DB_HOSTNAME"]) ? $_ENV["HEROKU_POSTGRES_DB_HOSTNAME"]: "localhost";
+$db['production']['username'] = isset($_ENV["HEROKU_POSTGRES_DB_USERNAME"]) ? $_ENV["HEROKU_POSTGRES_DB_USERNAME"]: "root";
+$db['production']['password'] = isset($_ENV["HEROKU_POSTGRES_DB_PASSWORD"]) ? $_ENV["HEROKU_POSTGRES_DB_PASSWORD"]: "webdevel";
+$db['production']['database'] = isset($_ENV["HEROKU_POSTGRES_DB_DBNAME"]) ? $_ENV["HEROKU_POSTGRES_DB_DBNAME"]: "passwordmanager_prod";
+$db['production']['port'] = isset($_ENV["HEROKU_POSTGRES_DB_PORT"]) ? $_ENV["HEROKU_POSTGRES_DB_PORT"]: "3306";
+$db['production']['dbdriver'] = "postgre";
 $db['production']['dbprefix'] = "";
 $db['production']['pconnect'] = TRUE;
 $db['production']['db_debug'] = TRUE;
