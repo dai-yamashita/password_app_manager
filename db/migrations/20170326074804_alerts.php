@@ -32,8 +32,8 @@ class Alerts extends AbstractMigration
             ->addColumn('isread', 'integer')
             ->addColumn('domainid', 'integer')
             ->addColumn('alert', 'text')
-            ->addColumn('to', 'string')
-            ->addColumn('from', 'string')
+            ->addColumn('to', 'integer')
+            ->addColumn('from', 'integer')
             ->addColumn('created', 'integer')
             ->create();
     }

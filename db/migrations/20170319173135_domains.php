@@ -30,7 +30,7 @@ class Domains extends AbstractMigration
       // create the table
       $table = $this->table('domains', array('id' => 'domain_id'));
       $table->addColumn('project_id', 'integer')
-            ->addColumn('type', 'string')
+            ->addColumn('type', 'integer')
             ->addColumn('templateid', 'integer')
             ->addColumn('changefreq', 'string')
             ->addColumn('importance', 'string')

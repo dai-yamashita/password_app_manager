@@ -296,24 +296,24 @@ $currenttime = gmt_to_local(time(), $timezone, $isdaylightsaving );
     }
 
     function check_unread_alerts() {
+      #$this->ci->db->where( array('isread' => 0, 'to' => $this->logged_userid , 'isread1 !=' => 1 ) );
+      #$this->ci->db->or_where( array('to' => -1));
+      #$this->ci->db->get($this->talerts)->result_array();
+      if ($this->ci->dx_auth->is_role(array('member')) ) {
+        $sql = "SELECT * FROM $this->talerts where 1=1 AND";
+        $sql .= "(alerts.to = $this->logged_userid) AND alerts.isread = 0";
+        $sql .= " ORDER BY alerts.created DESC";
+      } else {
+        $sql = "SELECT * FROM $this->talerts where 1=1 AND";
+        $sql .= "(alerts.to = -1 OR alerts.to = $this->logged_userid) AND alerts.isread = 0";
+        $sql .= " ORDER BY alerts.created DESC";
+      }
 
-        #$this->ci->db->where( array('isread' => 0, 'to' => $this->logged_userid , 'isread1 !=' => 1 ) );
-        #$this->ci->db->or_where( array('to' => -1));
-        #$this->ci->db->get($this->talerts)->result_array();
-    if ($this->ci->dx_auth->is_role(array('member')) ) {
-      $sql = "SELECT * FROM $this->talerts where 1=1 AND";
-      $sql .= "(`to` = $this->logged_userid) AND `isread` = 0";
-      $sql .= " ORDER BY alerts.created DESC";
-    } else {
-      $sql = "SELECT * FROM $this->talerts where 1=1 AND";
-      $sql .= "( `to` = -1 OR `to` = $this->logged_userid) AND `isread` = 0";
-      $sql .= " ORDER BY alerts.created DESC";
-    }
-        $rs = $this->ci->db->query($sql);
-        if ($rs->num_rows() > 0){
-            return $rs->result_array();
-        }
-        return FALSE;
+      $rs = $this->ci->db->query($sql);
+      if ($rs->num_rows() > 0){
+          return $rs->result_array();
+      }
+      return FALSE;
     }
 
   function check_user_alerts($uid) {
