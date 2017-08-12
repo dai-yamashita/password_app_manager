@@ -6,12 +6,12 @@ environments:
     default_migration_table: phinxlog
     default_database: development
     production:
-        adapter: mysql
-        host: localhost
-        name: passwordmanager_prod
-        user: root
-        pass: webdevel
-        port: 3306
+        adapter: pgsql
+        host: %%HEROKU_POSTGRES_DB_HOSTNAME%%
+        name: %%HEROKU_POSTGRES_DB_DBNAME%%
+        user: %%HEROKU_POSTGRES_DB_USERNAME%%
+        pass: %%HEROKU_POSTGRES_DB_PASSWORD%%
+        port: %%HEROKU_POSTGRES_DB_PORT%%
         charset: utf8
 
     development:
@@ -24,12 +24,12 @@ environments:
         charset: utf8
 
     testing:
-        adapter: mysql
-        host: localhost
-        name: passwordmanager_test
-        user: root
-        pass: webdevel
-        port: 3306
+        adapter: pgsql
+        host: %%PHINX_DB_HOST%%
+        name: %%PHINX_DB_DBNAME%%
+        user: %%PHINX_DB_USER%%
+        pass: %%PHINX_DB_PASS%%
+        port: %%PHINX_DB_PORT%%
         charset: utf8
 
 version_order: creation
