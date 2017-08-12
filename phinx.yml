@@ -11,7 +11,7 @@ environments:
         name: %%HEROKU_POSTGRES_DB_DBNAME%%
         user: %%HEROKU_POSTGRES_DB_USERNAME%%
         pass: %%HEROKU_POSTGRES_DB_PASSWORD%%
-        port: %%HEROKU_POSTGRES_DB_PORT%%
+        port: 5432
         charset: utf8
 
     development:
