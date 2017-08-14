@@ -4,6 +4,13 @@ A basic password app manager built using Codeigniter.
 ### Installation
 $ git clone --depth=1 git@github.com:sudogem/password_app_manager.git      
 
+### Requirements
+| Stacks         | Supported versions           |
+| ---------------|------------------------------|
+| PHP            | 5.5.38-Win32-VC11-x64<br>    |
+| MySQL          | mysql  Ver 14.14 Distrib 5.7.19, for Linux (x86_64) using  EditLine wrapper      |
+| PostgreSQL     | psql (PostgreSQL) 9.6.3, Heroku Postgres(9.6.1)   |
+
 Install phinx library using Composer:   
 For Linux:    
 $ curl -sS https://getcomposer.org/installer | sudo php — –install-dir=/usr/local/bin –filename=composer     <-- install Composer if it doesnt exist yet     

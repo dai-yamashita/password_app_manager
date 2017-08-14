@@ -34,8 +34,8 @@
 | the active record class
 */
 
-$active_group = "production";
-// $active_group = "postgres_dev";
+// $active_group = "production";
+$active_group = "postgres_dev";
 $active_record = TRUE;
 
 ## Note: Make sure that we configure our Environment variables(System variables in Windows)
